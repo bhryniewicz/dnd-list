@@ -9,10 +9,15 @@ import Image from "next/image";
 
 interface AddLinkFormProps {
   parentId?: string | null;
+  nestingLevel?: number;
 }
 
-export const AddLinkForm: FC<AddLinkFormProps> = ({ parentId }) => {
+export const AddLinkForm: FC<AddLinkFormProps> = ({
+  parentId,
+  nestingLevel,
+}) => {
   const { addLink } = useLinksContext();
+  console.log(parentId, "apr");
 
   const {
     register,
@@ -29,6 +34,7 @@ export const AddLinkForm: FC<AddLinkFormProps> = ({ parentId }) => {
       name: data.name,
       link: data.link,
       parentId: parentId,
+      nestingLevel: parentId !== null ? nestingLevel + 1 : 0,
       children: [],
     });
   };

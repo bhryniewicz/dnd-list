@@ -27,5 +27,9 @@ export const useLinks = () => {
     }
   };
 
+  useEffect(() => {
+    console.log(links);
+  }, [links]);
+
   return { links, addLink };
 };

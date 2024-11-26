@@ -8,6 +8,7 @@ import Image from "next/image";
 interface LinkPreviewProps {
   name: string;
   link: string;
+  nestingLevel: number;
   parentId: string | undefined;
   children: Array<Link>;
 }
@@ -15,13 +16,23 @@ interface LinkPreviewProps {
 export const LinkPreview: FC<LinkPreviewProps> = ({
   name,
   link,
+  nestingLevel,
   parentId,
   children,
 }) => {
   const [showForm, setShowForm] = useState<boolean>(false);
 
+  console.log(nestingLevel, "par");
+
+  const nestingMarginStyle = {
+    marginLeft: `${30 * nestingLevel}px`,
+  };
+
   return (
-    <li className="border-[1px] border-solid border-[#D0D5DD] rounded-lg mb-9">
+    <li
+      className={`border-[1px] border-solid border-[#D0D5DD] rounded-lg mb-9`}
+      style={{ ...nestingMarginStyle }}
+    >
       <div className="bg-white px-6 pt-4 rounded-t-lg">
         <div className="flex gap-3.5 items-center pb-4 bg-white">
           <Image width="20" height="20" src={Dnd} alt="drag and drop icon" />
@@ -52,7 +63,7 @@ export const LinkPreview: FC<LinkPreviewProps> = ({
       </ul>
       {showForm && (
         <div className="px-6 bg-[#F9FAFB] py-5 border-[1px] border=[#EAECF0] border-solid">
-          <AddLinkForm parentId={parentId} />
+          <AddLinkForm parentId={parentId} nestingLevel={nestingLevel} />
         </div>
       )}
       <div className="py-5 bg-[#f5f5f5] px-6 rounded-b-lg">

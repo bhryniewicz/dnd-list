@@ -2,8 +2,7 @@
 
 import { AddLinkForm } from "@/components/AddLinkForm/AddLinkForm";
 import { LinkPreview } from "@/components/LinkPreview";
-import { LinksProvider, useLinksContext } from "@/contexts";
-import { useLinks } from "@/hooks/useLinks";
+import { useLinksContext } from "@/contexts";
 
 export default function Home() {
   const { links } = useLinksContext();
@@ -15,14 +14,7 @@ export default function Home() {
       <ul>
         {links.map((link) => {
           {
-            return (
-              <LinkPreview
-                key={link.id}
-                {...link}
-                parentId={link.id}
-                
-              />
-            );
+            return <LinkPreview key={link.id} {...link} parentId={link.id} />;
           }
         })}
       </ul>
