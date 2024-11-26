@@ -1,7 +1,6 @@
 "use client";
 
 import { Link } from "@/types/link";
-import { link } from "fs";
 import { useEffect, useState } from "react";
 
 export const useLinks = () => {

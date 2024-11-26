@@ -48,14 +48,17 @@ export const LinkPreview: FC<LinkPreviewProps> = ({
             </h3>
             <p className="text-[#475467] text-sm leading-5">{link}</p>
           </div>
-          <div className="flex rounded-lg shadow-3xl py-2.5 px-4 text-sm text-[#344054] font-semibold border border-solid border-[#D0D5DD] divide-x divide-[#D0D5DD]">
-            <button className="" onClick={() => deleteLink(parentId)}>
+          <div className="flex rounded-lg shadow-3xl text-sm text-[#344054] font-semibold border border-solid border-[#D0D5DD] divide-x divide-[#D0D5DD]">
+            <button className="py-2 px-4" onClick={() => deleteLink(parentId)}>
               Usuń
             </button>
-            <button className="" onClick={() => console.log("edit")}>
+            <button className="py-2 px-4" onClick={() => console.log("edit")}>
               Edytuj
             </button>
-            <button className="" onClick={() => setShowChildForm(true)}>
+            <button
+              className="py-2 px-4"
+              onClick={() => setShowChildForm(true)}
+            >
               Dodaj pozycję menu
             </button>
           </div>

@@ -28,12 +28,11 @@ export const AddLinkForm: FC<AddLinkFormProps> = ({
   });
 
   const onSubmit = (data: FormValues) => {
-
     addLink(parentId, {
       id: crypto.randomUUID(),
       name: data.name,
       link: data.link,
-      parentId: parentId ?? null,
+      parentId: parentId,
       nestingLevel: nestingLevel,
       children: [],
     });
