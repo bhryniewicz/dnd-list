@@ -21,6 +21,7 @@ export const AddLinkForm: FC<AddLinkFormProps> = ({
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<FormValues>({
     mode: "onChange",
@@ -36,6 +37,8 @@ export const AddLinkForm: FC<AddLinkFormProps> = ({
       nestingLevel: nestingLevel,
       children: [],
     });
+
+    reset();
   };
 
   return (

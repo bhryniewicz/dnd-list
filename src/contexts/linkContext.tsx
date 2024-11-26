@@ -8,6 +8,7 @@ interface LinksContextType {
   links: Array<Link>;
   addLink: (parentId: string | null, link: Link) => void;
   deleteLink: (parentId: string | null) => void;
+  editLink: (parentId: string | null, link: Link) => void;
 }
 
 const LinksContext = createContext<LinksContextType | undefined>(undefined);

@@ -82,5 +82,12 @@ const deleteLink = (idToDelete) => {
   return links;
 };
 
-const updatedLinks = deleteLink("child-2");
-console.log(JSON.stringify(updatedLinks, null, 2));
+const editLink = (idToEdit, data) => {
+  const child = findLink(idToEdit, links);
+
+  child.name = data.name;
+  child.link = data.link;
+  console.log(child);
+};
+
+console.log(editLink("child-2", { name: "nowe", link: "link-nowy" }));

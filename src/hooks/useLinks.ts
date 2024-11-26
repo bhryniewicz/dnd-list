@@ -44,9 +44,18 @@ export const useLinks = () => {
     }
   };
 
+  const editLink = (parentId: string | null, data: Link) => {
+    const child = findLink(parentId, links);
+
+    child.name = data.name;
+    child.link = data.link;
+
+    setLinks([...links]);
+  };
+
   useEffect(() => {
     console.log(links);
   }, [links]);
 
-  return { links, addLink, deleteLink };
+  return { links, addLink, deleteLink, editLink };
 };
