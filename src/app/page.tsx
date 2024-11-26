@@ -2,6 +2,7 @@
 
 import { AddLinkForm } from "@/components/AddLinkForm/AddLinkForm";
 import { LinkPreview } from "@/components/LinkPreview";
+import { NoLinks } from "@/components/NoLinks/NoLinks";
 import { useLinksContext } from "@/contexts";
 
 export default function Home() {
@@ -9,6 +10,7 @@ export default function Home() {
 
   return (
     <div>
+      <NoLinks />
       <AddLinkForm parentId={null} nestingLevel={0} />
       <div className="mt-4"></div>
       <ul>
