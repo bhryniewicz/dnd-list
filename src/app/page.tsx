@@ -6,11 +6,11 @@ import { LinksProvider, useLinksContext } from "@/contexts";
 import { useLinks } from "@/hooks/useLinks";
 
 export default function Home() {
-  const { links, addLink } = useLinksContext();
+  const { links } = useLinksContext();
 
   return (
     <div>
-      <AddLinkForm parentId={null} onAdd={addLink} />
+      <AddLinkForm parentId={null} />
       <div className="mt-4"></div>
       <ul>
         {links.map((link) => {
@@ -20,7 +20,7 @@ export default function Home() {
                 key={link.id}
                 {...link}
                 parentId={link.id}
-                onAdd={addLink}
+                
               />
             );
           }

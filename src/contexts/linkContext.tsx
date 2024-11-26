@@ -6,7 +6,7 @@ import { useLinks } from "@/hooks/useLinks";
 
 interface LinksContextType {
   links: Array<Link>;
-  addLink: (link: Link) => void;
+  addLink: (parentId: string | null, link: Link) => void;
 }
 
 const LinksContext = createContext<LinksContextType | undefined>(undefined);

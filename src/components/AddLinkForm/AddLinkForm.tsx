@@ -9,10 +9,11 @@ import Image from "next/image";
 
 interface AddLinkFormProps {
   parentId?: string | null;
-  onAdd: (value: Link) => void;
 }
 
-export const AddLinkForm: FC<AddLinkFormProps> = ({ parentId, onAdd }) => {
+export const AddLinkForm: FC<AddLinkFormProps> = ({ parentId }) => {
+  const { addLink } = useLinksContext();
+
   const {
     register,
     handleSubmit,
@@ -23,7 +24,7 @@ export const AddLinkForm: FC<AddLinkFormProps> = ({ parentId, onAdd }) => {
   });
 
   const onSubmit = (data: FormValues) => {
-    onAdd(parentId, {
+    addLink(parentId, {
       id: crypto.randomUUID(),
       name: data.name,
       link: data.link,
@@ -51,9 +52,12 @@ export const AddLinkForm: FC<AddLinkFormProps> = ({ parentId, onAdd }) => {
               id="name"
               placeholder="np. Promocje"
               name="name"
-              className="px-3 py-2 rounded-lg border-[1px] border-solid border-[#D0D5DD] text-[#667085] placeholder-[#667085]"
+              className="px-3 py-2 rounded-lg border-[1px] border-solid border-[#D0D5DD] text-[#667085] placeholder-[#667085] shadow-3xl
+              "
             />
-            {Boolean(errors.name) && errors.name?.message}
+            <p className="text-xs text-[#de3a5b] mt-1">
+              {Boolean(errors.name) && errors.name?.message}
+            </p>
           </div>
 
           <div className="flex flex-col">
@@ -68,9 +72,11 @@ export const AddLinkForm: FC<AddLinkFormProps> = ({ parentId, onAdd }) => {
               id="link"
               placeholder="Wklej lub wyszukaj"
               name="link"
-              className="px-3 py-2 rounded-lg border-[1px] border-solid border-[#D0D5DD] text-[#667085] placeholder-[#667085]"
+              className="px-3 py-2 rounded-lg border-[1px] border-solid border-[#D0D5DD] text-[#667085] placeholder-[#667085] shadow-3xl"
             />
-            <p>{Boolean(errors.link) && errors.link?.message}</p>
+            <p className="text-xs text-[#de3a5b] mt-1">
+              {Boolean(errors.link) && errors.link?.message}
+            </p>
           </div>
         </div>
         <Image
@@ -85,13 +91,13 @@ export const AddLinkForm: FC<AddLinkFormProps> = ({ parentId, onAdd }) => {
       <div className="flex gap-2 mt-5">
         <button
           type="reset"
-          className="px-4 text-sm border-[1px] border-solid border-[#D0D5DD] text-[#344054] rounded-lg px-3.5 py-2.5 font-semibold"
+          className="px-4 text-sm border-[1px] border-solid border-[#D0D5DD] text-[#344054] rounded-lg px-3.5 py-2.5 font-semibold shadow-3xl"
         >
           Anuluj
         </button>
         <button
           type="submit"
-          className="text-sm border-solid border-[#D6BBFB] border-[1px] rounded-lg text-[#6941C6] px-3.5 py-2.5 font-semibold"
+          className="text-sm border-solid border-[#D6BBFB] border-[1px] rounded-lg text-[#6941C6] px-3.5 py-2.5 font-semibold shadow-3xl"
         >
           Dodaj
         </button>
