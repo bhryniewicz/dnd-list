@@ -8,16 +8,15 @@ import BinIcon from "@/assets/bin.svg";
 import Image from "next/image";
 
 interface AddLinkFormProps {
-  parentId?: string | null;
-  nestingLevel?: number;
+  parentId: string | null;
+  nestingLevel: number;
 }
 
 export const AddLinkForm: FC<AddLinkFormProps> = ({
-  parentId,
+  parentId = null,
   nestingLevel,
 }) => {
   const { addLink } = useLinksContext();
-  console.log(parentId, "apr");
 
   const {
     register,
@@ -29,12 +28,13 @@ export const AddLinkForm: FC<AddLinkFormProps> = ({
   });
 
   const onSubmit = (data: FormValues) => {
+
     addLink(parentId, {
       id: crypto.randomUUID(),
       name: data.name,
       link: data.link,
-      parentId: parentId,
-      nestingLevel: parentId !== null ? nestingLevel + 1 : 0,
+      parentId: parentId ?? null,
+      nestingLevel: nestingLevel,
       children: [],
     });
   };

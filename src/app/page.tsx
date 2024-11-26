@@ -9,7 +9,7 @@ export default function Home() {
 
   return (
     <div>
-      <AddLinkForm parentId={null} />
+      <AddLinkForm parentId={null} nestingLevel={0} />
       <div className="mt-4"></div>
       <ul>
         {links.map((link) => {

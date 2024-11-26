@@ -70,8 +70,17 @@ const newChild = {
   children: [],
 };
 
-const deleteLink = (parentId, links) => {
-    const link = findLink(parentId, links);
+const deleteLink = (idToDelete) => {
+  const child = findLink(idToDelete, links);
 
-    links.filter((link) => link.id !== parentId);
-}
+  const parent = findLink(child.parentId, links);
+
+  const ids = parent.children.filter((link) => link.id !== idToDelete);
+
+  parent.children = ids;
+
+  return links;
+};
+
+const updatedLinks = deleteLink("child-2");
+console.log(JSON.stringify(updatedLinks, null, 2));
