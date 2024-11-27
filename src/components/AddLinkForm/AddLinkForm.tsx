@@ -104,12 +104,12 @@ export const AddLinkForm: FC<AddLinkFormProps> = ({
       <div className="flex gap-2 mt-5">
         <Button
           type="reset"
-          variant="secondary"
-          onClick={() => console.log("anuluj")}
+          variant="primary"
+          onClick={() => setCurrentForm(null)}
         >
           Anuluj
         </Button>
-        <Button type="submit" variant="primary">
+        <Button type="submit" variant="secondary">
           Dodaj
         </Button>
       </div>

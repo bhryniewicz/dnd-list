@@ -1,13 +1,14 @@
 import { FC, ReactNode, useState } from "react";
 import { AddLinkForm } from "../AddLinkForm";
 import { editLinkData, Link } from "@/types";
-import Dnd from "@/assets/dnd.svg";
+import DndIcon from "@/assets/dnd.svg";
 import Image from "next/image";
 import { useCurrentFormContext, useLinksContext } from "@/contexts";
 import { Button } from "../Button";
 import { EditLinkForm } from "../EditLinkForm/EditLinkForm";
+import { LinkActionButtons } from "../LinkActionButtons/LinkActionButtons";
 
-interface LinkPreviewProps {
+export interface LinkPreviewProps {
   name: string;
   link: string;
   id: string;
@@ -23,7 +24,6 @@ export const LinkPreview: FC<LinkPreviewProps> = ({
   parentId,
   children,
 }) => {
-  const { deleteLink } = useLinksContext();
   const { currentForm, setCurrentForm } = useCurrentFormContext();
 
   const nestingMarginStyle = {
@@ -45,52 +45,26 @@ export const LinkPreview: FC<LinkPreviewProps> = ({
         `}
         >
           <div className="flex gap-3.5 items-center pb-4 bg-white">
-            <Image width="20" height="20" src={Dnd} alt="drag and drop icon" />
+            <Image
+              width="20"
+              height="20"
+              src={DndIcon}
+              alt="drag and drop icon"
+            />
             <div className="grow gap-y-2">
               <h3 className="text-[#101828] text-sm font-semibold leading-5">
                 {name}
               </h3>
               <p className="text-[#475467] text-sm leading-5">{link}</p>
             </div>
-            <div className="flex rounded-lg shadow-3xl text-sm text-[#344054] font-semibold border border-solid border-[#D0D5DD] divide-x divide-[#D0D5DD]">
-              <button
-                className="py-2 px-4"
-                onClick={() => deleteLink(parentId)}
-              >
-                Usuń
-              </button>
-              <button
-                className="py-2 px-4"
-                onClick={() =>
-                  setCurrentForm(
-                    <EditLinkForm
-                      parentId={parentId}
-                      link={link}
-                      name={name}
-                      key={parentId}
-                    />
-                  )
-                }
-              >
-                Edytuj
-              </button>
-              <button
-                className="py-2 px-4"
-                onClick={() =>
-                  setCurrentForm(
-                    <AddLinkForm
-                      parentId={parentId}
-                      nestingLevel={nestingLevel}
-                    />
-                  )
-                }
-              >
-                Dodaj pozycję menu
-              </button>
-            </div>
           </div>
         </div>
-
+        <LinkActionButtons
+          name={name}
+          link={link}
+          parentId={parentId}
+          nestingLevel={nestingLevel}
+        />
         <ul className="bg-[#F9FAFB]">
           {children?.map((link) => (
             <LinkPreview
