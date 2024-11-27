@@ -1,9 +1,11 @@
+export type LinkParentId = string | null;
+
 export type Link = {
   id: string;
   name: string;
   link: string;
   nestingLevel: number;
-  parentId: string | null;
+  parentId: LinkParentId;
 
   children: Array<Link>;
 };

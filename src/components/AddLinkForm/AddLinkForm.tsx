@@ -1,15 +1,15 @@
 import { useCurrentFormContext, useLinksContext } from "@/contexts";
-import { Link } from "@/types";
-import { FC, SyntheticEvent } from "react";
+import { FC } from "react";
 import { useForm } from "react-hook-form";
 import { FormValues, schema } from "./schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import BinIcon from "@/assets/bin.svg";
 import Image from "next/image";
-import { Button } from "../Button";
+import { Button } from "@/components/Button";
+import { LinkParentId } from "@/types";
 
 type AddLinkFormProps = {
-  parentId: string | null;
+  parentId: LinkParentId;
   nestingLevel: number;
 };
 

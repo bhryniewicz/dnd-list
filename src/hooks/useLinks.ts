@@ -1,12 +1,12 @@
 "use client";
 
-import { editLinkData, Link } from "@/types/link";
+import { editLinkData, Link, LinkParentId } from "@/types/link";
 import { useEffect, useState } from "react";
 
 export const useLinks = () => {
   const [links, setLinks] = useState<Array<Link>>([]);
 
-  const findLink = (parentId: string | null, links: Array<Link>) => {
+  const findLink = (parentId: LinkParentId, links: Array<Link>) => {
     for (const node of links) {
       if (node.id === parentId) return node;
       if (node.children) {
@@ -16,7 +16,7 @@ export const useLinks = () => {
     }
   };
 
-  const addLink = (parentId: string | null, newLink: Link) => {
+  const addLink = (parentId: LinkParentId, newLink: Link) => {
     const parent = findLink(parentId, links);
 
     if (parent) {
@@ -27,7 +27,7 @@ export const useLinks = () => {
     }
   };
 
-  const deleteLink = (parentId: string | null) => {
+  const deleteLink = (parentId: LinkParentId) => {
     const child = findLink(parentId, links);
 
     if (child.parentId === null) {
@@ -44,7 +44,7 @@ export const useLinks = () => {
     }
   };
 
-  const editLink = (parentId: string | null, { name, link }: editLinkData) => {
+  const editLink = (parentId: LinkParentId, { name, link }: editLinkData) => {
     const child = findLink(parentId, links);
 
     child.name = name;

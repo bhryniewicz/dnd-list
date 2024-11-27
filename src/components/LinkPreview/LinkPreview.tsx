@@ -1,11 +1,10 @@
-import { FC, ReactNode, useState } from "react";
+import { FC } from "react";
 import { AddLinkForm } from "../AddLinkForm";
-import { editLinkData, Link } from "@/types";
+import { Link, LinkParentId } from "@/types";
 import DndIcon from "@/assets/dnd.svg";
 import Image from "next/image";
-import { useCurrentFormContext, useLinksContext } from "@/contexts";
+import { useCurrentFormContext } from "@/contexts";
 import { Button } from "../Button";
-import { EditLinkForm } from "../EditLinkForm/EditLinkForm";
 import { LinkActionButtons } from "../LinkActionButtons/LinkActionButtons";
 
 export type LinkPreviewProps = {
@@ -13,7 +12,7 @@ export type LinkPreviewProps = {
   link: string;
   id: string;
   nestingLevel: number;
-  parentId: string | null;
+  parentId: LinkParentId;
   children: Array<Link>;
 };
 

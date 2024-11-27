@@ -4,11 +4,12 @@ import { FC } from "react";
 import { useForm } from "react-hook-form";
 import { FormValues, schema } from "../AddLinkForm/schema";
 import { Button } from "../Button";
+import { LinkParentId } from "@/types";
 
 type EditLinkProps = {
   name: string;
   link: string;
-  parentId: string | null;
+  parentId: LinkParentId;
 };
 
 export const EditLinkForm: FC<EditLinkProps> = ({ name, link, parentId }) => {
