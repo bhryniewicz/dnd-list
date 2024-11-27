@@ -4,6 +4,7 @@ import { Link } from "@/types";
 import Dnd from "@/assets/dnd.svg";
 import Image from "next/image";
 import { useLinksContext } from "@/contexts";
+import { Button } from "../Button";
 
 interface LinkPreviewProps {
   name: string;
@@ -87,12 +88,9 @@ export const LinkPreview: FC<LinkPreviewProps> = ({
       )}
       {nestingLevel === 0 && (
         <div className="py-5 bg-[#f5f5f5] px-6 rounded-b-lg">
-          <button
-            className="text-[#344054] text-sm font-semibold shadow-3xl border-[1px] border-solid border-[#D0D5DD] rounded-lg py-2.5 px-3.5 bg-white"
-            onClick={() => setShowParentForm(true)}
-          >
+          <Button variant="primary" onClick={() => setShowParentForm(true)}>
             Dodaj pozycję menu
-          </button>
+          </Button>
         </div>
       )}
     </li>

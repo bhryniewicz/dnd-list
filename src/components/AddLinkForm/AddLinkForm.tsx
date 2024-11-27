@@ -6,6 +6,7 @@ import { FormValues, schema } from "./schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import BinIcon from "@/assets/bin.svg";
 import Image from "next/image";
+import { Button } from "../Button";
 
 interface AddLinkFormProps {
   parentId: string | null;
@@ -28,13 +29,13 @@ export const AddLinkForm: FC<AddLinkFormProps> = ({
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = (data: FormValues) => {
+  const onSubmit = ({ name, link }: FormValues) => {
     addLink(parentId, {
       id: crypto.randomUUID(),
-      name: data.name,
-      link: data.link,
-      parentId: parentId,
-      nestingLevel: nestingLevel,
+      name,
+      link,
+      parentId,
+      nestingLevel,
       children: [],
     });
 
@@ -97,18 +98,16 @@ export const AddLinkForm: FC<AddLinkFormProps> = ({
       </div>
 
       <div className="flex gap-2 mt-5">
-        <button
+        <Button
           type="reset"
-          className="px-4 text-sm border-[1px] border-solid border-[#D0D5DD] text-[#344054] rounded-lg px-3.5 py-2.5 font-semibold shadow-3xl"
+          variant="secondary"
+          onClick={() => console.log("anuluj")}
         >
           Anuluj
-        </button>
-        <button
-          type="submit"
-          className="text-sm border-solid border-[#D6BBFB] border-[1px] rounded-lg text-[#6941C6] px-3.5 py-2.5 font-semibold shadow-3xl"
-        >
+        </Button>
+        <Button type="submit" variant="primary">
           Dodaj
-        </button>
+        </Button>
       </div>
     </form>
   );
