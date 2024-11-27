@@ -1,9 +1,9 @@
-import { FC, useState } from "react";
+import { FC, ReactNode, useState } from "react";
 import { AddLinkForm } from "../AddLinkForm";
 import { editLinkData, Link } from "@/types";
 import Dnd from "@/assets/dnd.svg";
 import Image from "next/image";
-import { useLinksContext } from "@/contexts";
+import { useCurrentFormContext, useLinksContext } from "@/contexts";
 import { Button } from "../Button";
 import { EditLinkForm } from "../EditLinkForm/EditLinkForm";
 
@@ -24,10 +24,7 @@ export const LinkPreview: FC<LinkPreviewProps> = ({
   children,
 }) => {
   const { deleteLink } = useLinksContext();
-
-  const [showParentForm, setShowParentForm] = useState<boolean>(false);
-  const [showChildForm, setShowChildForm] = useState<boolean>(false);
-  const [showEditForm, setShowEditForm] = useState<boolean>(false);
+  const { currentForm, setCurrentForm } = useCurrentFormContext();
 
   const nestingMarginStyle = {
     marginLeft: `${30 * nestingLevel}px`,
@@ -38,11 +35,15 @@ export const LinkPreview: FC<LinkPreviewProps> = ({
       className={` border-[#D0D5DD] ${
         nestingLevel === 0
           ? "rounded-lg mb-9 border-[1px] border-solid"
-          : "rounded-bl-lg border-b-[1px] border-l-[1px]"
+          : "rounded-bl-lg"
       }`}
     >
       <div style={nestingMarginStyle}>
-        <div className="bg-white px-6 pt-4 rounded-t-lg border-b-[1px] border-[#D0D5DD]">
+        <div
+          className={`bg-white px-6 pt-4 border-l-[1px] border-b-[1px] border-[#D0D5DD]
+        ${nestingLevel === 0 ? "rounded-t-lg " : "rounded-b-lg"}
+        `}
+        >
           <div className="flex gap-3.5 items-center pb-4 bg-white">
             <Image width="20" height="20" src={Dnd} alt="drag and drop icon" />
             <div className="grow gap-y-2">
@@ -60,13 +61,29 @@ export const LinkPreview: FC<LinkPreviewProps> = ({
               </button>
               <button
                 className="py-2 px-4"
-                onClick={() => setShowEditForm(true)}
+                onClick={() =>
+                  setCurrentForm(
+                    <EditLinkForm
+                      parentId={parentId}
+                      link={link}
+                      name={name}
+                      key={parentId}
+                    />
+                  )
+                }
               >
                 Edytuj
               </button>
               <button
                 className="py-2 px-4"
-                onClick={() => setShowChildForm(true)}
+                onClick={() =>
+                  setCurrentForm(
+                    <AddLinkForm
+                      parentId={parentId}
+                      nestingLevel={nestingLevel}
+                    />
+                  )
+                }
               >
                 Dodaj pozycję menu
               </button>
@@ -85,26 +102,22 @@ export const LinkPreview: FC<LinkPreviewProps> = ({
           ))}
         </ul>
       </div>
-      {showEditForm && (
-        <EditLinkForm parentId={parentId} link={link} name={name} />
-      )}
-
-      {showParentForm && (
-        <div className="px-6 bg-[#F9FAFB] py-5">
-          <AddLinkForm parentId={null} nestingLevel={nestingLevel} />
-        </div>
-      )}
-      {showChildForm && (
-        <div className="px-6 bg-[#F9FAFB] py-5">
-          <AddLinkForm parentId={parentId} nestingLevel={nestingLevel} />
-        </div>
-      )}
       {nestingLevel === 0 && (
-        <div className="py-5 bg-[#f5f5f5] px-6 rounded-b-lg">
-          <Button variant="primary" onClick={() => setShowParentForm(true)}>
-            Dodaj pozycję menu
-          </Button>
-        </div>
+        <>
+          <div className="px-6 bg-[#F9FAFB] py-5">{currentForm}</div>
+          <div className="py-5 bg-[#f5f5f5] px-6 rounded-b-lg">
+            <Button
+              variant="primary"
+              onClick={() =>
+                setCurrentForm(
+                  <AddLinkForm parentId={null} nestingLevel={nestingLevel} />
+                )
+              }
+            >
+              Dodaj pozycję menu
+            </Button>
+          </div>
+        </>
       )}
     </li>
   );

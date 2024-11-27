@@ -1,4 +1,4 @@
-import { useLinksContext } from "@/contexts";
+import { useCurrentFormContext, useLinksContext } from "@/contexts";
 import { Link } from "@/types";
 import { FC, SyntheticEvent } from "react";
 import { useForm } from "react-hook-form";
@@ -18,6 +18,7 @@ export const AddLinkForm: FC<AddLinkFormProps> = ({
   nestingLevel,
 }) => {
   const { addLink } = useLinksContext();
+  const { setCurrentForm } = useCurrentFormContext();
 
   const {
     register,
@@ -60,8 +61,9 @@ export const AddLinkForm: FC<AddLinkFormProps> = ({
               {...register("name")}
               id="name"
               placeholder="np. Promocje"
+              autoComplete="off"
               name="name"
-              className="px-3 py-2 rounded-lg border-[1px] border-solid border-[#D0D5DD] text-[#667085] placeholder-[#667085] shadow-3xl
+              className="px-3 py-2 rounded-lg border-[1px] border-solid border-[#D0D5DD] text-[#667085] placeholder-[#667085] outline-none shadow-3xl
               "
             />
             <p className="text-xs text-[#de3a5b] mt-1">
@@ -79,9 +81,10 @@ export const AddLinkForm: FC<AddLinkFormProps> = ({
             <input
               {...register("link")}
               id="link"
+              autoComplete="off"
               placeholder="Wklej lub wyszukaj"
               name="link"
-              className="px-3 py-2 rounded-lg border-[1px] border-solid border-[#D0D5DD] text-[#667085] placeholder-[#667085] shadow-3xl"
+              className="px-3 py-2 rounded-lg border-[1px] border-solid border-[#D0D5DD] text-[#667085] outline-none placeholder-[#667085] shadow-3xl"
             />
             <p className="text-xs text-[#de3a5b] mt-1">
               {Boolean(errors.link) && errors.link?.message}
@@ -94,6 +97,7 @@ export const AddLinkForm: FC<AddLinkFormProps> = ({
           src={BinIcon}
           alt="bin icon"
           className="self-start cursor-pointer"
+          onClick={() => setCurrentForm(null)}
         />
       </div>
 
