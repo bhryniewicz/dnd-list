@@ -7,3 +7,5 @@ export type Link = {
 
   children: Array<Link>;
 };
+
+export type editLinkData = Pick<Link, "name" | "link">;

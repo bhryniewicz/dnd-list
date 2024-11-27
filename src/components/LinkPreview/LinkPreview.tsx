@@ -1,10 +1,11 @@
 import { FC, useState } from "react";
 import { AddLinkForm } from "../AddLinkForm";
-import { Link } from "@/types";
+import { editLinkData, Link } from "@/types";
 import Dnd from "@/assets/dnd.svg";
 import Image from "next/image";
 import { useLinksContext } from "@/contexts";
 import { Button } from "../Button";
+import { EditLinkForm } from "../EditLinkForm/EditLinkForm";
 
 interface LinkPreviewProps {
   name: string;
@@ -26,6 +27,7 @@ export const LinkPreview: FC<LinkPreviewProps> = ({
 
   const [showParentForm, setShowParentForm] = useState<boolean>(false);
   const [showChildForm, setShowChildForm] = useState<boolean>(false);
+  const [showEditForm, setShowEditForm] = useState<boolean>(false);
 
   const nestingMarginStyle = {
     marginLeft: `${30 * nestingLevel}px`,
@@ -38,44 +40,55 @@ export const LinkPreview: FC<LinkPreviewProps> = ({
           ? "rounded-lg mb-9 border-[1px] border-solid"
           : "rounded-bl-lg border-b-[1px] border-l-[1px]"
       }`}
-      style={nestingMarginStyle}
     >
-      <div className="bg-white px-6 pt-4 rounded-t-lg border-b-[1px] border-[#D0D5DD]">
-        <div className="flex gap-3.5 items-center pb-4 bg-white">
-          <Image width="20" height="20" src={Dnd} alt="drag and drop icon" />
-          <div className="grow gap-y-2">
-            <h3 className="text-[#101828] text-sm font-semibold leading-5">
-              {name}
-            </h3>
-            <p className="text-[#475467] text-sm leading-5">{link}</p>
-          </div>
-          <div className="flex rounded-lg shadow-3xl text-sm text-[#344054] font-semibold border border-solid border-[#D0D5DD] divide-x divide-[#D0D5DD]">
-            <button className="py-2 px-4" onClick={() => deleteLink(parentId)}>
-              Usuń
-            </button>
-            <button className="py-2 px-4" onClick={() => console.log("edit")}>
-              Edytuj
-            </button>
-            <button
-              className="py-2 px-4"
-              onClick={() => setShowChildForm(true)}
-            >
-              Dodaj pozycję menu
-            </button>
+      <div style={nestingMarginStyle}>
+        <div className="bg-white px-6 pt-4 rounded-t-lg border-b-[1px] border-[#D0D5DD]">
+          <div className="flex gap-3.5 items-center pb-4 bg-white">
+            <Image width="20" height="20" src={Dnd} alt="drag and drop icon" />
+            <div className="grow gap-y-2">
+              <h3 className="text-[#101828] text-sm font-semibold leading-5">
+                {name}
+              </h3>
+              <p className="text-[#475467] text-sm leading-5">{link}</p>
+            </div>
+            <div className="flex rounded-lg shadow-3xl text-sm text-[#344054] font-semibold border border-solid border-[#D0D5DD] divide-x divide-[#D0D5DD]">
+              <button
+                className="py-2 px-4"
+                onClick={() => deleteLink(parentId)}
+              >
+                Usuń
+              </button>
+              <button
+                className="py-2 px-4"
+                onClick={() => setShowEditForm(true)}
+              >
+                Edytuj
+              </button>
+              <button
+                className="py-2 px-4"
+                onClick={() => setShowChildForm(true)}
+              >
+                Dodaj pozycję menu
+              </button>
+            </div>
           </div>
         </div>
-      </div>
 
-      <ul className="bg-[#F9FAFB]">
-        {children?.map((link) => (
-          <LinkPreview
-            key={link.id}
-            {...link}
-            parentId={link.id}
-            nestingLevel={nestingLevel + 1}
-          />
-        ))}
-      </ul>
+        <ul className="bg-[#F9FAFB]">
+          {children?.map((link) => (
+            <LinkPreview
+              key={link.id}
+              {...link}
+              parentId={link.id}
+              nestingLevel={nestingLevel + 1}
+            />
+          ))}
+        </ul>
+      </div>
+      {showEditForm && (
+        <EditLinkForm parentId={parentId} link={link} name={name} />
+      )}
+
       {showParentForm && (
         <div className="px-6 bg-[#F9FAFB] py-5">
           <AddLinkForm parentId={null} nestingLevel={nestingLevel} />

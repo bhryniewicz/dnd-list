@@ -1,6 +1,6 @@
 "use client";
 
-import { Link } from "@/types/link";
+import { editLinkData, Link } from "@/types/link";
 import { useEffect, useState } from "react";
 
 export const useLinks = () => {
@@ -44,11 +44,11 @@ export const useLinks = () => {
     }
   };
 
-  const editLink = (parentId: string | null, data: Link) => {
+  const editLink = (parentId: string | null, { name, link }: editLinkData) => {
     const child = findLink(parentId, links);
 
-    child.name = data.name;
-    child.link = data.link;
+    child.name = name;
+    child.link = link;
 
     setLinks([...links]);
   };
