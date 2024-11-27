@@ -3,9 +3,9 @@ import Image from "next/image";
 import { Button } from "../Button";
 import { FC } from "react";
 
-interface NoLinksProps {
+type NoLinksProps = {
   setShowInitialForm: (value: boolean) => void;
-}
+};
 
 export const NoLinks: FC<NoLinksProps> = ({ setShowInitialForm }) => {
   return (
