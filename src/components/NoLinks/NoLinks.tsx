@@ -1,8 +1,13 @@
 import PlusCircleIcon from "@/assets/plusCircle.svg";
 import Image from "next/image";
 import { Button } from "../Button";
+import { FC } from "react";
 
-export const NoLinks = () => {
+interface NoLinksProps {
+  setShowInitialForm: (value: boolean) => void;
+}
+
+export const NoLinks: FC<NoLinksProps> = ({ setShowInitialForm }) => {
   return (
     <div className="flex flex-col justify-center items-center w-full border-[1px] border-solid border-[#EAECF0] bg-[#F9FAFB] mb-8 py-7">
       <h1 className="font-semibold leading-6 text-[#101828]">
@@ -11,7 +16,7 @@ export const NoLinks = () => {
       <p className="text-sm text-[#475467] mb-6">
         W tym menu nie ma jeszcze żadnych linków.
       </p>
-      <Button variant="contained" onClick={() => console.log("click")}>
+      <Button variant="contained" onClick={() => setShowInitialForm(true)}>
         <Image
           alt="plus cirlce icon"
           width={20}
