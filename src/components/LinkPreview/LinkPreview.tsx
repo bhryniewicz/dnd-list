@@ -8,14 +8,14 @@ import { Button } from "../Button";
 import { EditLinkForm } from "../EditLinkForm/EditLinkForm";
 import { LinkActionButtons } from "../LinkActionButtons/LinkActionButtons";
 
-export interface LinkPreviewProps {
+export type LinkPreviewProps = {
   name: string;
   link: string;
   id: string;
   nestingLevel: number;
   parentId: string | null;
   children: Array<Link>;
-}
+};
 
 export const LinkPreview: FC<LinkPreviewProps> = ({
   name,

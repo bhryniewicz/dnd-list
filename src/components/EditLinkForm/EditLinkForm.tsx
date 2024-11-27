@@ -5,11 +5,11 @@ import { useForm } from "react-hook-form";
 import { FormValues, schema } from "../AddLinkForm/schema";
 import { Button } from "../Button";
 
-interface EditLinkProps {
+type EditLinkProps = {
   name: string;
   link: string;
   parentId: string | null;
-}
+};
 
 export const EditLinkForm: FC<EditLinkProps> = ({ name, link, parentId }) => {
   const { editLink } = useLinksContext();

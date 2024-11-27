@@ -8,10 +8,10 @@ import BinIcon from "@/assets/bin.svg";
 import Image from "next/image";
 import { Button } from "../Button";
 
-interface AddLinkFormProps {
+type AddLinkFormProps = {
   parentId: string | null;
   nestingLevel: number;
-}
+};
 
 export const AddLinkForm: FC<AddLinkFormProps> = ({
   parentId = null,
