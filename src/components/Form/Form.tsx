@@ -1,24 +1,25 @@
-import { useCurrentFormContext, useLinksContext } from "@/contexts";
-import { FC } from "react";
 import { useForm } from "react-hook-form";
-import { FormValues, schema } from "./schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import BinIcon from "@/assets/bin.svg";
 import Image from "next/image";
-import { Button } from "@/components/Button";
+import { useCurrentFormContext } from "@/contexts";
+import { Button } from "../Button";
+import BinIcon from "@/assets/bin.svg";
+import { FC } from "react";
 import { LinkParentId } from "@/types";
-import { useCurrentForm } from "@/hooks/useCurrentForm";
+import { FormValues, schema } from "./schema";
 
-type AddLinkFormProps = {
-  parentId: LinkParentId;
-  nestingLevel: number;
+type FormProps = {
+  onSubmit: (parentId: LinkParentId, { link, name }: FormValues) => void;
+  formValues?: {
+    link: string;
+    name: string;
+  };
 };
 
-export const AddLinkForm: FC<AddLinkFormProps> = ({
-  parentId = null,
-  nestingLevel,
+export const Form: FC<FormProps> = ({
+  onSubmit,
+  formValues = { link: "", name: "" },
 }) => {
-  const { addLink } = useLinksContext();
   const { setCurrentForm } = useCurrentFormContext();
 
   const {
@@ -26,28 +27,16 @@ export const AddLinkForm: FC<AddLinkFormProps> = ({
     handleSubmit,
     reset,
     formState: { errors },
+    watch,
   } = useForm<FormValues>({
     mode: "onChange",
     resolver: zodResolver(schema),
+    defaultValues: formValues,
   });
-
-  const onSubmit = ({ name, link }: FormValues) => {
-    console.log(parentId, "parId");
-    addLink(parentId, {
-      id: crypto.randomUUID(),
-      name,
-      link,
-      parentId,
-      nestingLevel,
-      children: [],
-    });
-
-    reset();
-  };
 
   return (
     <form
-      className="mb-4 flex flex-col px-6 py-5 bg-white rounded-lg border-[1px] border-[#D0D5DD] border-solid"
+      className="flex flex-col px-6 py-5 bg-white rounded-lg border-[1px] border-[#D0D5DD] border-solid"
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="flex gap-4">
@@ -65,8 +54,8 @@ export const AddLinkForm: FC<AddLinkFormProps> = ({
               placeholder="np. Promocje"
               autoComplete="off"
               name="name"
-              className="px-3 py-2 rounded-lg border-[1px] border-solid border-[#D0D5DD] text-[#667085] placeholder-[#667085] outline-none shadow-3xl
-              "
+              className="px-3 py-2 rounded-lg border-[1px] border-solid border-[#D0D5DD] text-[#667085] placeholder-[#667085] outline-none shadow-3xl"
+              value={watch("name")}
             />
             <p className="text-xs text-[#de3a5b] mt-1">
               {Boolean(errors.name) && errors.name?.message}
@@ -87,6 +76,7 @@ export const AddLinkForm: FC<AddLinkFormProps> = ({
               placeholder="Wklej lub wyszukaj"
               name="link"
               className="px-3 py-2 rounded-lg border-[1px] border-solid border-[#D0D5DD] text-[#667085] outline-none placeholder-[#667085] shadow-3xl"
+              value={watch("link")}
             />
             <p className="text-xs text-[#de3a5b] mt-1">
               {Boolean(errors.link) && errors.link?.message}
@@ -107,12 +97,15 @@ export const AddLinkForm: FC<AddLinkFormProps> = ({
         <Button
           type="reset"
           variant="primary"
-          onClick={() => setCurrentForm(null)}
+          onClick={() => {
+            setCurrentForm(null);
+            reset();
+          }}
         >
           Anuluj
         </Button>
         <Button type="submit" variant="secondary">
-          Dodaj
+          {formValues.name ? "Edytuj" : "Dodaj"}
         </Button>
       </div>
     </form>

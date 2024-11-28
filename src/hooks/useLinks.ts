@@ -1,12 +1,15 @@
 "use client";
 
-import { editLinkData, Link, LinkParentId } from "@/types/link";
+import { editLinkData, Link, LinkParentId, LinksGroup } from "@/types/link";
 import { useEffect, useState } from "react";
 
 export const useLinks = () => {
-  const [links, setLinks] = useState<any>([]);
+  const [links, setLinks] = useState<Array<LinksGroup>>([]);
 
-  const findLink = (parentId: LinkParentId, links: Array<Link>): any => {
+  const findLink = (
+    parentId: LinkParentId,
+    links: Array<LinksGroup> | Array<Link>
+  ): any => {
     for (const group of links) {
       if (group.id === parentId) return group;
 
@@ -23,7 +26,7 @@ export const useLinks = () => {
     }
   };
 
-  const createGroup = (groupId: LinkParentId, firstLink: Link) => {
+  const createGroup = (groupId: string, firstLink: Link) => {
     const newGroup = {
       id: groupId,
       parentId: null,
@@ -33,7 +36,10 @@ export const useLinks = () => {
     setLinks([...links, newGroup]);
   };
 
-  const addLink = (parentId: LinkParentId, newLink: Link) => {
+  const addLink = (
+    parentId: any,
+    newLink: any
+  ) => {
     const parent = findLink(parentId, links);
 
     if (parent) {
@@ -46,7 +52,7 @@ export const useLinks = () => {
 
   const deleteLink = (parentId: LinkParentId) => {
     const child = findLink(parentId, links);
-k
+
     if (child.parentId.includes("group")) {
       const filteredLinks = links.filter((link) => link.id !== child.parentId);
       setLinks([...filteredLinks]);

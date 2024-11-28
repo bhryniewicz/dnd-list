@@ -1,7 +1,8 @@
 "use client";
 
-import { AddGroupForm } from "@/components/AddGroupForm/AddGroupForm";
+import { GroupForm } from "@/components/GroupForm";
 import { GroupPreview } from "@/components/GroupPreview/GroupPreview";
+import { NoLinks } from "@/components/NoLinks";
 import { CurrentFormProvider, useLinksContext } from "@/contexts";
 import { useState } from "react";
 
@@ -11,14 +12,19 @@ export default function Home() {
 
   return (
     <div>
-      <AddGroupForm />
-      {/* <NoLinks setShowInitialForm={setShowInitialForm} /> */}
-      {/* {showInitialForm && <AddLinkForm parentId={null} nestingLevel={0} />} */}
-      {links.map(({ id, children }) => (
-        <CurrentFormProvider key={id}>
-          <GroupPreview id={id} children={children} />
+      <NoLinks setShowInitialForm={setShowInitialForm} />
+      {showInitialForm && (
+        <CurrentFormProvider>
+          <GroupForm />
         </CurrentFormProvider>
-      ))}
+      )}
+      <div className="mt-4">
+        {links.map(({ id, children }) => (
+          <CurrentFormProvider key={id}>
+            <GroupPreview id={id} children={children} />
+          </CurrentFormProvider>
+        ))}
+      </div>
     </div>
   );
 }

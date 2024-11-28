@@ -1,9 +1,7 @@
 import { useCurrentFormContext, useLinksContext } from "@/contexts";
-import { EditLinkForm } from "../EditLinkForm/EditLinkForm";
-import { AddLinkForm } from "../AddLinkForm";
 import { LinkPreviewProps } from "../LinkPreview";
 import { FC } from "react";
-import { useCurrentForm } from "@/hooks/useCurrentForm";
+import { LinkForm } from "../LinkForm/LinkForm";
 
 type LinkActionButtons = Omit<LinkPreviewProps, "children" | "id">;
 
@@ -25,7 +23,7 @@ export const LinkActionButtons: FC<LinkActionButtons> = ({
         className="py-2 px-4"
         onClick={() =>
           setCurrentForm(
-            <EditLinkForm
+            <LinkForm
               parentId={parentId}
               link={link}
               name={name}
@@ -41,7 +39,7 @@ export const LinkActionButtons: FC<LinkActionButtons> = ({
         onClick={() => {
           console.log("clicked");
           setCurrentForm(
-            <AddLinkForm parentId={parentId} nestingLevel={nestingLevel} />
+            <LinkForm parentId={parentId} nestingLevel={nestingLevel} />
           );
         }}
       >

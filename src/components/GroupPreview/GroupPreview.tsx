@@ -1,10 +1,9 @@
 import { useCurrentFormContext } from "@/contexts";
 import { Button } from "../Button";
 import { LinkPreview } from "../LinkPreview";
-import { AddLinkForm } from "../AddLinkForm";
 import { Link } from "@/types";
 import { FC } from "react";
-import { useCurrentForm } from "@/hooks/useCurrentForm";
+import { LinkForm } from "../LinkForm/LinkForm";
 
 type GroupPreviewProps = {
   id: string;
@@ -37,7 +36,7 @@ export const GroupPreview: FC<GroupPreviewProps> = ({ id, children }) => {
               variant="primary"
               onClick={() =>
                 setCurrentForm(
-                  <AddLinkForm
+                  <LinkForm
                     parentId={children[0].parentId}
                     nestingLevel={children[0].nestingLevel}
                   />

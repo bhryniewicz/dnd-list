@@ -1,15 +1,15 @@
 "use client";
 
 import React, { createContext, useContext, ReactNode } from "react";
-import { Link, LinkParentId } from "@/types/link";
+import { editLinkData, Link, LinkParentId, LinksGroup } from "@/types/link";
 import { useLinks } from "@/hooks/useLinks";
 
 type LinksContextType = {
-  links: Array<Link>;
+  links: Array<LinksGroup>;
   addLink: (parentId: LinkParentId, link: Link) => void;
   deleteLink: (parentId: LinkParentId) => void;
-  editLink: (parentId: LinkParentId, link: Link) => void;
-  createGroup: (groupId: LinkParentId, firstLink: Link) => void;
+  editLink: (parentId: LinkParentId, linkData: editLinkData) => void;
+  createGroup: (groupId: string, firstLink: Link) => void;
 };
 
 const LinksContext = createContext<LinksContextType | undefined>(undefined);
