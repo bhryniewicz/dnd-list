@@ -3,6 +3,22 @@ import { Link, LinkParentId } from "@/types";
 import DndIcon from "@/assets/dnd.svg";
 import Image from "next/image";
 import { LinkActionButtons } from "../LinkActionButtons/LinkActionButtons";
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
+import {
+  useSortable,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import { useLinksContext } from "@/contexts";
 
 export type LinkPreviewProps = {
   name: string;
@@ -20,15 +36,31 @@ export const LinkPreview: FC<LinkPreviewProps> = ({
   nestingLevel,
   children,
 }) => {
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+
   const nestingMarginStyle = {
     marginLeft: `${30 * nestingLevel}px`,
   };
 
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
   return (
-    <div style={nestingMarginStyle}>
+    <>
       <div
         className={`bg-white px-6 pt-4 border-l-[1px] border-b-[1px] border-[#D0D5DD]
         ${nestingLevel === 0 ? "rounded-t-lg " : "rounded-b-lg"}`}
+        style={{ ...nestingMarginStyle, ...style }}
       >
         <div className="flex gap-3.5 items-center pb-4 bg-white">
           <Image
@@ -36,6 +68,9 @@ export const LinkPreview: FC<LinkPreviewProps> = ({
             height="20"
             src={DndIcon}
             alt="drag and drop icon"
+            ref={setNodeRef}
+            {...attributes}
+            {...listeners}
           />
           <div className="grow gap-y-2">
             <h3 className="text-[#101828] text-sm font-semibold leading-5">
@@ -51,16 +86,22 @@ export const LinkPreview: FC<LinkPreviewProps> = ({
           />
         </div>
       </div>
-      <ul className="bg-[#F9FAFB]">
-        {children?.map((link) => (
-          <LinkPreview
-            key={link.id}
-            {...link}
-            parentId={link.id}
-            nestingLevel={nestingLevel + 1}
-          />
-        ))}
-      </ul>
-    </div>
+
+      <SortableContext
+        items={children ? children.map((child) => child.id) : []}
+        strategy={verticalListSortingStrategy}
+      >
+        <ul className="bg-[#F9FAFB]">
+          {children?.map((link) => (
+            <LinkPreview
+              key={link.id}
+              {...link}
+              parentId={link.id}
+              nestingLevel={nestingLevel + 1}
+            />
+          ))}
+        </ul>
+      </SortableContext>
+    </>
   );
 };

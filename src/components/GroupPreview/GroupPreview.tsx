@@ -1,9 +1,22 @@
-import { useCurrentFormContext } from "@/contexts";
+import { useCurrentFormContext, useLinksContext } from "@/contexts";
 import { Button } from "../Button";
 import { LinkPreview } from "../LinkPreview";
 import { Link } from "@/types";
 import { FC } from "react";
 import { LinkForm } from "../LinkForm/LinkForm";
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
+import {
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
 
 type GroupPreviewProps = {
   id: string;
@@ -12,19 +25,36 @@ type GroupPreviewProps = {
 
 export const GroupPreview: FC<GroupPreviewProps> = ({ id, children }) => {
   const { currentForm, setCurrentForm } = useCurrentFormContext();
+  const { handleDragEnd } = useLinksContext();
+
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
 
   return (
     <div
       key={id}
       className="rounded-lg mb-9 border-[1px] border-solid shadow-3xl"
     >
-      <ul>
-        {children.map((link) => (
-          <li key={link.id}>
-            <LinkPreview {...link} nestingLevel={0} />
-          </li>
-        ))}
-      </ul>
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragEnd={handleDragEnd}
+      >
+        <SortableContext
+          items={children ? children.map((child) => child.id) : []}
+          strategy={verticalListSortingStrategy}
+        >
+          <ul>
+            {children.map((link) => (
+              <LinkPreview {...link} nestingLevel={0} key={link.id} />
+            ))}
+          </ul>
+        </SortableContext>
+      </DndContext>
 
       {children.length > 0 && (
         <>

@@ -36,7 +36,7 @@ export const LinkActionButtons: FC<LinkActionButtons> = ({
       </button>
       <button
         className="py-2 px-4"
-        onClick={() => {
+        onClick={(e) => {
           console.log("clicked");
           setCurrentForm(
             <LinkForm parentId={parentId} nestingLevel={nestingLevel} />
