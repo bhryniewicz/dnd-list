@@ -19,10 +19,12 @@ export type LinkPreviewProps = {
 export const LinkPreview: FC<LinkPreviewProps> = ({
   name,
   link,
+  id,
   nestingLevel,
   parentId,
   children,
 }) => {
+  console.log(children, "children");
   const { currentForm, setCurrentForm } = useCurrentFormContext();
 
   const nestingMarginStyle = {
@@ -30,10 +32,10 @@ export const LinkPreview: FC<LinkPreviewProps> = ({
   };
 
   return (
-    <li
+    <div
       className={` border-[#D0D5DD] ${
         nestingLevel === 0
-          ? "rounded-lg mb-9 border-[1px] border-solid"
+          ? ""
           : "rounded-bl-lg"
       }`}
     >
@@ -56,14 +58,14 @@ export const LinkPreview: FC<LinkPreviewProps> = ({
               </h3>
               <p className="text-[#475467] text-sm leading-5">{link}</p>
             </div>
+            <LinkActionButtons
+              name={name}
+              link={link}
+              parentId={id}
+              nestingLevel={nestingLevel}
+            />
           </div>
         </div>
-        <LinkActionButtons
-          name={name}
-          link={link}
-          parentId={parentId}
-          nestingLevel={nestingLevel}
-        />
         <ul className="bg-[#F9FAFB]">
           {children?.map((link) => (
             <LinkPreview
@@ -75,23 +77,6 @@ export const LinkPreview: FC<LinkPreviewProps> = ({
           ))}
         </ul>
       </div>
-      {nestingLevel === 0 && (
-        <>
-          <div className="px-6 bg-[#F9FAFB] py-5">{currentForm}</div>
-          <div className="py-5 bg-[#f5f5f5] px-6 rounded-b-lg">
-            <Button
-              variant="primary"
-              onClick={() =>
-                setCurrentForm(
-                  <AddLinkForm parentId={null} nestingLevel={nestingLevel} />
-                )
-              }
-            >
-              Dodaj pozycję menu
-            </Button>
-          </div>
-        </>
-      )}
-    </li>
+    </div>
   );
 };

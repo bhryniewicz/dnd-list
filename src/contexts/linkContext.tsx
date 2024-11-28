@@ -9,6 +9,7 @@ type LinksContextType = {
   addLink: (parentId: LinkParentId, link: Link) => void;
   deleteLink: (parentId: LinkParentId) => void;
   editLink: (parentId: LinkParentId, link: Link) => void;
+  createGroup: (groupId: LinkParentId, firstLink: Link) => void;
 };
 
 const LinksContext = createContext<LinksContextType | undefined>(undefined);

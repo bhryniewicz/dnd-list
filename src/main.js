@@ -1,41 +1,61 @@
-const links = [
+let links = [
   {
-    id: "parent-1",
-    name: "first",
-    link: "link///",
+    id: "group-1",
     parentId: null,
-
-    children: [],
-  },
-  {
-    id: "parent-2",
-    name: "second",
-    link: "linnk\\/",
-    parentId: null,
-
     children: [
       {
-        id: "child-1",
-        name: "first-child",
-        link: "link-child\\/",
-        parentId: "parent-2",
+        id: "parent-1",
+        name: "first",
+        link: "link///",
+        parentId: "group-1",
+
+        children: [],
+      },
+    ],
+  },
+  {
+    id: "group-2",
+    parentId: null,
+    children: [
+      {
+        id: "parent-1",
+        name: "first",
+        link: "link///",
+        parentId: null,
 
         children: [],
       },
       {
-        id: "child-2",
-        name: "second-child",
-        link: "link-child\\/",
-        parentId: "parent-2",
+        id: "parent-2",
+        name: "second",
+        link: "linnk\\/",
+        parentId: null,
 
         children: [
           {
-            id: "child-1-2",
-            name: "second-child-1",
+            id: "child-1",
+            name: "first-child",
             link: "link-child\\/",
-            parentId: "child-2",
+            parentId: "parent-2",
 
             children: [],
+          },
+          {
+            id: "child-2",
+            name: "second-child",
+            link: "link-child\\/",
+            parentId: "parent-2",
+
+            children: [
+              {
+                id: "child-1-2",
+                name: "second-child-1",
+                link: "link-child\\/",
+                parentId: "child-2",
+
+                children: [],
+              },
+            ],
           },
         ],
       },
@@ -43,22 +63,50 @@ const links = [
   },
 ];
 
-const findLink = (parentId, links) => {
-  for (const node of links) {
-    if (node.id === parentId) return node;
-    if (node.children) {
-      const child = findLink(parentId, node.children);
-      if (child) return child;
+// const findLink = (parentId, links) => {
+//   for (const node of links) {
+//     if (node.id === parentId) return node;
+//     if (node.children) {
+//       const child = findLink(parentId, node.children);
+//       if (child) return child;
+//     }
+//   }
+// };
+
+const findLink = (idToFind, links) => {
+  for (const group of links) {
+    // Check if this is the group itself
+    if (group.id === idToFind) return group;
+
+    // Check inside the mainLinks of the group
+    if (group.children) {
+      for (const node of group.children) {
+        if (node.id === idToFind) return node;
+
+        // Recursively check inside children
+        if (node.children) {
+          const child = findLink(idToFind, node.children);
+          if (child) return child;
+        }
+      }
     }
   }
+  return null; // Return null if no match found
 };
 
-const addChildToParent = (parentId, newChild, links) => {
+const addChildToParent = (parentId, newChild) => {
   const parent = findLink(parentId, links);
   if (parent) {
     parent.children.push(newChild);
   } else {
-    console.log("Parent not found.");
+    links = [
+      ...links,
+      {
+        parentId: null,
+        id: "group-3",
+        children: [newChild],
+      },
+    ];
   }
 };
 
@@ -70,24 +118,26 @@ const newChild = {
   children: [],
 };
 
-const deleteLink = (idToDelete) => {
-  const child = findLink(idToDelete, links);
+addChildToParent('group-1', newChild);
+addChildToParent(, newChild);
 
-  const parent = findLink(child.parentId, links);
+// const deleteLink = (idToDelete) => {
+//   const child = findLink(idToDelete, links);
 
-  const ids = parent.children.filter((link) => link.id !== idToDelete);
+//   const parent = findLink(child.parentId, links);
 
-  parent.children = ids;
+//   const ids = parent.children.filter((link) => link.id !== idToDelete);
 
-  return links;
-};
+//   parent.children = ids;
+// };
 
-const editLink = (idToEdit, data) => {
-  const child = findLink(idToEdit, links);
+console.log(JSON.stringify(links, null, 2));
+// const editLink = (idToEdit, data) => {
+//   const child = findLink(idToEdit, links);
 
-  child.name = data.name;
-  child.link = data.link;
-  console.log(child);
-};
+//   child.name = data.name;
+//   child.link = data.link;
+//   console.log(child);
+// };
 
-console.log(editLink("child-2", { name: "nowe", link: "link-nowy" }));
+// console.log(editLink("child-2", { name: "nowe", link: "link-nowy" }));

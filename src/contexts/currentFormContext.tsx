@@ -22,10 +22,6 @@ export const CurrentFormProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
   const [currentForm, setCurrentForm] = useState<ReactNode>(null);
 
-  useEffect(() => {
-    console.log(currentForm, "cr");
-  }, [currentForm]);
-
   return (
     <CurrentFormContext.Provider value={{ currentForm, setCurrentForm }}>
       {children}

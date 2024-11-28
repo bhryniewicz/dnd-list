@@ -31,6 +31,7 @@ export const AddLinkForm: FC<AddLinkFormProps> = ({
   });
 
   const onSubmit = ({ name, link }: FormValues) => {
+    console.log(parentId, "parId");
     addLink(parentId, {
       id: crypto.randomUUID(),
       name,
