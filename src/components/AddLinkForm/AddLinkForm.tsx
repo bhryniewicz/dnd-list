@@ -7,6 +7,7 @@ import BinIcon from "@/assets/bin.svg";
 import Image from "next/image";
 import { Button } from "@/components/Button";
 import { LinkParentId } from "@/types";
+import { useCurrentForm } from "@/hooks/useCurrentForm";
 
 type AddLinkFormProps = {
   parentId: LinkParentId;

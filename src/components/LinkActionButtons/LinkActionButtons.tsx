@@ -3,6 +3,7 @@ import { EditLinkForm } from "../EditLinkForm/EditLinkForm";
 import { AddLinkForm } from "../AddLinkForm";
 import { LinkPreviewProps } from "../LinkPreview";
 import { FC } from "react";
+import { useCurrentForm } from "@/hooks/useCurrentForm";
 
 type LinkActionButtons = Omit<LinkPreviewProps, "children" | "id">;
 
@@ -37,11 +38,12 @@ export const LinkActionButtons: FC<LinkActionButtons> = ({
       </button>
       <button
         className="py-2 px-4"
-        onClick={() =>
+        onClick={() => {
+          console.log("clicked");
           setCurrentForm(
             <AddLinkForm parentId={parentId} nestingLevel={nestingLevel} />
-          )
-        }
+          );
+        }}
       >
         Dodaj pozycję menu
       </button>

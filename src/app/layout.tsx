@@ -9,9 +9,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <LinksProvider>
-          <CurrentFormProvider>{children}</CurrentFormProvider>
-        </LinksProvider>
+        <LinksProvider>{children}</LinksProvider>
       </body>
     </html>
   );

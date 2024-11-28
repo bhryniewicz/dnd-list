@@ -4,6 +4,7 @@ import { LinkPreview } from "../LinkPreview";
 import { AddLinkForm } from "../AddLinkForm";
 import { Link } from "@/types";
 import { FC } from "react";
+import { useCurrentForm } from "@/hooks/useCurrentForm";
 
 type GroupPreviewProps = {
   id: string;
