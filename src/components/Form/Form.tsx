@@ -5,11 +5,10 @@ import { useCurrentFormContext } from "@/contexts";
 import { Button } from "../Button";
 import BinIcon from "@/assets/bin.svg";
 import { FC } from "react";
-import { LinkParentId } from "@/types";
 import { FormValues, schema } from "./schema";
 
 type FormProps = {
-  onSubmit: (parentId: LinkParentId, { link, name }: FormValues) => void;
+  onSubmit: ({ link, name }: FormValues) => void;
   formValues?: {
     link: string;
     name: string;
@@ -34,11 +33,18 @@ export const Form: FC<FormProps> = ({
     defaultValues: formValues,
   });
 
+  const handleFormSubmit = (data: FormValues) => {
+    onSubmit(data);
+    reset();
+    if (formValues.name && formValues.link) {
+      setCurrentForm(null);
+    }
+  };
 
   return (
     <form
       className="flex flex-col px-6 py-5 bg-white rounded-lg border-[1px] border-[#D0D5DD] border-solid"
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(handleFormSubmit)}
     >
       <div className="flex gap-4">
         <div className="flex flex-col grow gap-2">

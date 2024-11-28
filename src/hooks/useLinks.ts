@@ -1,7 +1,7 @@
 "use client";
 
 import { editLinkData, Link, LinkParentId, LinksGroup } from "@/types/link";
-import { SyntheticEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { arrayMove } from "@dnd-kit/sortable";
 
 export const useLinks = () => {
@@ -10,7 +10,7 @@ export const useLinks = () => {
   const findLink = (
     parentId: LinkParentId,
     links: Array<LinksGroup> | Array<Link>
-  ): any => {
+  ) => {
     for (const group of links) {
       if (group.id === parentId) return group;
 
@@ -25,7 +25,6 @@ export const useLinks = () => {
         }
       }
     }
-    return undefined;
   };
 
   const createGroup = (groupId: string, firstLink: Link) => {
@@ -79,7 +78,7 @@ export const useLinks = () => {
     console.log(links);
   }, [links]);
 
-  const handleDragEnd = (event) => {
+  const handleDragEnd = (event: any) => {
     const { active, over } = event;
 
     if (!over || active.id === over.id) return;
