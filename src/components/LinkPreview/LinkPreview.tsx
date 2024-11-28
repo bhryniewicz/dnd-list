@@ -3,8 +3,6 @@ import { AddLinkForm } from "../AddLinkForm";
 import { Link, LinkParentId } from "@/types";
 import DndIcon from "@/assets/dnd.svg";
 import Image from "next/image";
-import { useCurrentFormContext } from "@/contexts";
-import { Button } from "../Button";
 import { LinkActionButtons } from "../LinkActionButtons/LinkActionButtons";
 
 export type LinkPreviewProps = {
@@ -21,62 +19,49 @@ export const LinkPreview: FC<LinkPreviewProps> = ({
   link,
   id,
   nestingLevel,
-  parentId,
   children,
 }) => {
-  console.log(children, "children");
-  const { currentForm, setCurrentForm } = useCurrentFormContext();
-
   const nestingMarginStyle = {
     marginLeft: `${30 * nestingLevel}px`,
   };
 
   return (
-    <div
-      className={` border-[#D0D5DD] ${
-        nestingLevel === 0
-          ? ""
-          : "rounded-bl-lg"
-      }`}
-    >
-      <div style={nestingMarginStyle}>
-        <div
-          className={`bg-white px-6 pt-4 border-l-[1px] border-b-[1px] border-[#D0D5DD]
-        ${nestingLevel === 0 ? "rounded-t-lg " : "rounded-b-lg"}
-        `}
-        >
-          <div className="flex gap-3.5 items-center pb-4 bg-white">
-            <Image
-              width="20"
-              height="20"
-              src={DndIcon}
-              alt="drag and drop icon"
-            />
-            <div className="grow gap-y-2">
-              <h3 className="text-[#101828] text-sm font-semibold leading-5">
-                {name}
-              </h3>
-              <p className="text-[#475467] text-sm leading-5">{link}</p>
-            </div>
-            <LinkActionButtons
-              name={name}
-              link={link}
-              parentId={id}
-              nestingLevel={nestingLevel}
-            />
+    <div style={nestingMarginStyle}>
+      <div
+        className={`bg-white px-6 pt-4 border-l-[1px] border-b-[1px] border-[#D0D5DD]
+        ${nestingLevel === 0 ? "rounded-t-lg " : "rounded-b-lg"}`}
+      >
+        <div className="flex gap-3.5 items-center pb-4 bg-white">
+          <Image
+            width="20"
+            height="20"
+            src={DndIcon}
+            alt="drag and drop icon"
+          />
+          <div className="grow gap-y-2">
+            <h3 className="text-[#101828] text-sm font-semibold leading-5">
+              {name}
+            </h3>
+            <p className="text-[#475467] text-sm leading-5">{link}</p>
           </div>
+          <LinkActionButtons
+            name={name}
+            link={link}
+            parentId={id}
+            nestingLevel={nestingLevel}
+          />
         </div>
-        <ul className="bg-[#F9FAFB]">
-          {children?.map((link) => (
-            <LinkPreview
-              key={link.id}
-              {...link}
-              parentId={link.id}
-              nestingLevel={nestingLevel + 1}
-            />
-          ))}
-        </ul>
       </div>
+      <ul className="bg-[#F9FAFB]">
+        {children?.map((link) => (
+          <LinkPreview
+            key={link.id}
+            {...link}
+            parentId={link.id}
+            nestingLevel={nestingLevel + 1}
+          />
+        ))}
+      </ul>
     </div>
   );
 };

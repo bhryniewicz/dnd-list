@@ -46,9 +46,9 @@ export const useLinks = () => {
 
   const deleteLink = (parentId: LinkParentId) => {
     const child = findLink(parentId, links);
-
-    if (child.parentId === null) {
-      const filteredLinks = links.filter((link) => link.id !== child.id);
+k
+    if (child.parentId.includes("group")) {
+      const filteredLinks = links.filter((link) => link.id !== child.parentId);
       setLinks([...filteredLinks]);
     } else {
       const parent = findLink(child.parentId, links);
