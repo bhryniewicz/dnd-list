@@ -7,7 +7,7 @@ import { arrayMove } from "@dnd-kit/sortable";
 export const useLinks = () => {
   const [links, setLinks] = useState<Array<LinksGroup>>([]);
 
-  const findLink = (
+  const findLink: any = (
     parentId: LinkParentId,
     links: Array<LinksGroup> | Array<Link>
   ) => {
@@ -37,30 +37,28 @@ export const useLinks = () => {
     setLinks([...links, newGroup]);
   };
 
-  const addLink = (parentId: any, newLink: any) => {
+  const addLink = (parentId: LinkParentId, newLink: Link) => {
     const parent = findLink(parentId, links);
 
-    if (parent) {
-      parent.children.push(newLink);
-      setLinks([...links]);
-    } else {
-      setLinks([...links, newLink]);
-    }
+    parent.children.push(newLink);
+    setLinks([...links]);
   };
 
   const deleteLink = (parentId: LinkParentId) => {
-    const child = findLink(parentId, links);
+    const parent = findLink(parentId, links);
+    const group = findLink(parent.parentId, links);
+    const link = findLink(parent.id, links);
 
-    if (child.parentId.includes("group")) {
-      const filteredLinks = links.filter((link) => link.id !== child.parentId);
-      setLinks([...filteredLinks]);
+    if (parent.parentId.includes("group")) {
+      if (group.children.length === 1) {
+        const filteredLinks = links.filter((group1) => group1.id !== group.id);
+        setLinks([...filteredLinks]);
+      } else {
+        group.children = group.children.filter((link1) => link1.id !== link.id);
+        setLinks([...links]);
+      }
     } else {
-      const parent = findLink(child.parentId, links);
-      const filteredLinks = parent.children.filter(
-        (link: Link) => link.id !== parentId
-      );
-
-      parent.children = filteredLinks;
+      group.children = group.children.filter((link1) => link1.id !== link.id);
       setLinks([...links]);
     }
   };
@@ -98,9 +96,6 @@ export const useLinks = () => {
       (child: Link) => child.id === over.id
     );
 
-    console.log(oldIndex, "old");
-    console.log(newIndex, "new");
-
     const updatedChildren = arrayMove(
       activeParentList.children,
       oldIndex,
@@ -118,7 +113,6 @@ export const useLinks = () => {
     deleteLink,
     editLink,
     createGroup,
-    setLinks,
     handleDragEnd,
   };
 };
