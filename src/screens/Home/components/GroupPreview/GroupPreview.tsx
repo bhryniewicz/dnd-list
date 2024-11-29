@@ -1,9 +1,3 @@
-import { useCurrentFormContext, useLinksContext } from "@/contexts";
-import { Button } from "../../../../components/Button";
-import { LinkPreview } from "../../../../components/LinkPreview";
-import { Link } from "@/types";
-import { FC } from "react";
-import { LinkForm } from "../LinkForm/LinkForm";
 import {
   DndContext,
   closestCenter,
@@ -17,6 +11,14 @@ import {
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
+import { FC } from "react";
+
+import { Button } from "@/components/Button";
+import { LinkPreview } from "@/components/LinkPreview";
+import { useCurrentFormContext, useLinksContext } from "@/contexts";
+import { Link } from "@/types";
+
+import { LinkForm } from "../LinkForm/LinkForm";
 
 type GroupPreviewProps = {
   id: string;
@@ -35,10 +37,7 @@ export const GroupPreview: FC<GroupPreviewProps> = ({ id, children }) => {
   );
 
   return (
-    <div
-      key={id}
-      className="rounded-lg mb-9 border-[1px] border-solid shadow-3xl"
-    >
+    <div key={id} className="rounded-lg mb-9 border border-solid">
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}
@@ -59,9 +58,9 @@ export const GroupPreview: FC<GroupPreviewProps> = ({ id, children }) => {
       {children.length > 0 && (
         <>
           {currentForm && (
-            <div className="px-6 bg-[#F9FAFB] py-5">{currentForm}</div>
+            <div className="px-6 bg-background-primary py-5">{currentForm}</div>
           )}
-          <div className="py-5 bg-[#f5f5f5] px-6 rounded-b-lg">
+          <div className="py-5 bg-background-secondary px-6 rounded-b-lg">
             <Button
               variant="primary"
               onClick={() =>

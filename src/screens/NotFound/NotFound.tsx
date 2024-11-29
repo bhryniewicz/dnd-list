@@ -1,7 +1,8 @@
 "use client";
 
-import { Button } from "@/components/Button";
 import { redirect } from "next/navigation";
+
+import { Button } from "@/components/Button";
 
 export const NotFound = () => {
   return (

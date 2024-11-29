@@ -40,7 +40,7 @@ export const LinkPreview: FC<LinkPreviewProps> = ({
   return (
     <>
       <div
-        className={`bg-white px-6 pt-4 border-l-[1px] border-b-[1px] border-[#D0D5DD]
+        className={`bg-white px-6 pt-4 border-l-[1px] border-b-[1px] border-border-primary
         ${nestingLevel === 0 ? "rounded-t-lg " : "rounded-b-lg"}`}
         style={{ ...style }}
       >
@@ -55,10 +55,10 @@ export const LinkPreview: FC<LinkPreviewProps> = ({
             {...listeners}
           />
           <div className="grow gap-y-2">
-            <h3 className="text-[#101828] text-sm font-semibold leading-5">
+            <h3 className="text-font-title text-sm font-semibold leading-5">
               {name}
             </h3>
-            <p className="text-[#475467] text-sm leading-5">{link}</p>
+            <p className="text-font-subtitle text-sm leading-5">{link}</p>
           </div>
           <LinkActionButtons
             name={name}
@@ -73,7 +73,7 @@ export const LinkPreview: FC<LinkPreviewProps> = ({
         items={children ? children.map((child) => child.id) : []}
         strategy={verticalListSortingStrategy}
       >
-        <ul className="bg-[#F9FAFB]">
+        <ul className="bg-background-primary">
           {children?.map((link) => (
             <LinkPreview
               key={link.id}

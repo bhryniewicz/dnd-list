@@ -1,10 +1,9 @@
 import { FC } from "react";
 
+import { Form, FormValues } from "@/components/Form";
 import { useLinksContext } from "@/contexts";
 import { LinkParentId } from "@/types";
 
-import { Form } from "../../../../components/Form/Form";
-import { FormValues } from "../../../../components/Form/schema";
 
 type LinkFormProps = {
   name?: string;

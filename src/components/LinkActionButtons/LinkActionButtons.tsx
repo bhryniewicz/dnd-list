@@ -17,7 +17,7 @@ export const LinkActionButtons: FC<LinkActionButtons> = ({
   const { deleteLink } = useLinksContext();
 
   return (
-    <div className="flex rounded-lg shadow-3xl text-sm text-[#344054] font-semibold border border-solid border-[#D0D5DD] divide-x divide-[#D0D5DD]">
+    <div className="flex rounded-lg text-sm text-font-primary shadow-link font-semibold border border-solid border-border-primary divide-x divide-[#D0D5DD]">
       <button className="py-2 px-4" onClick={() => deleteLink(parentId)}>
         Usuń
       </button>

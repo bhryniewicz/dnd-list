@@ -43,7 +43,7 @@ export const Form: FC<FormProps> = ({
 
   return (
     <form
-      className="flex flex-col px-6 py-5 bg-white rounded-lg border-[1px] border-[#D0D5DD] border-solid"
+      className="flex flex-col px-6 py-5 bg-white rounded-lg border border-border-primary border-solid"
       onSubmit={handleSubmit(handleFormSubmit)}
     >
       <div className="flex gap-4">
@@ -51,7 +51,7 @@ export const Form: FC<FormProps> = ({
           <div className="flex flex-col">
             <label
               htmlFor="name"
-              className="text-[#344054] text-sm font-medium leading-5 mb-1.5"
+              className="text-font-primary text-sm font-medium leading-5 mb-1.5"
             >
               Nazwa
             </label>
@@ -61,10 +61,10 @@ export const Form: FC<FormProps> = ({
               placeholder="np. Promocje"
               autoComplete="off"
               name="name"
-              className="px-3 py-2 rounded-lg border-[1px] border-solid border-[#D0D5DD] text-[#667085] placeholder-[#667085] outline-none shadow-3xl"
+              className="px-3 py-2 rounded-lg border border-solid border-border-primary text-font-input placeholder-text-input outline-none shadow-link"
               value={watch("name")}
             />
-            <p className="text-xs text-[#de3a5b] mt-1">
+            <p className="text-xs text-font-error mt-1">
               {Boolean(errors.name) && errors.name?.message}
             </p>
           </div>
@@ -82,7 +82,7 @@ export const Form: FC<FormProps> = ({
               autoComplete="off"
               placeholder="Wklej lub wyszukaj"
               name="link"
-              className="px-3 py-2 rounded-lg border-[1px] border-solid border-[#D0D5DD] text-[#667085] outline-none placeholder-[#667085] shadow-3xl"
+              className="px-3 py-2 rounded-lg border border-solid border-border-primary text-[#667085] outline-none placeholder-[#667085]"
               value={watch("link")}
             />
             <p className="text-xs text-[#de3a5b] mt-1">

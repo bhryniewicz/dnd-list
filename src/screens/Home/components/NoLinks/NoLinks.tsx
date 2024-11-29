@@ -2,9 +2,7 @@ import Image from "next/image";
 import { FC } from "react";
 
 import PlusCircleIcon from "@/assets/plusCircle.svg";
-
-import { Button } from "../../../../components/Button";
-
+import { Button } from "@/components/Button";
 
 type NoLinksProps = {
   setShowInitialForm: (value: boolean) => void;
@@ -12,11 +10,11 @@ type NoLinksProps = {
 
 export const NoLinks: FC<NoLinksProps> = ({ setShowInitialForm }) => {
   return (
-    <div className="flex flex-col justify-center items-center w-full border-[1px] border-solid border-[#EAECF0] bg-[#F9FAFB] mb-8 py-7">
-      <h1 className="font-semibold leading-6 text-[#101828]">
+    <div className="flex flex-col justify-center items-center w-full border border-solid border-border-noLinks bg-background-secondary mb-8 py-7">
+      <h1 className="font-semibold leading-6 text-font-title">
         Menu jest puste
       </h1>
-      <p className="text-sm text-[#475467] mb-6">
+      <p className="text-sm text-font-subtitle mb-6">
         W tym menu nie ma jeszcze żadnych linków.
       </p>
       <Button variant="contained" onClick={() => setShowInitialForm(true)}>

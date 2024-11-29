@@ -1,8 +1,9 @@
+import { useState } from "react";
+
+import { CurrentFormProvider, useLinksContext } from "@/contexts";
 import { GroupForm } from "@/screens/Home/components/GroupForm";
 import { GroupPreview } from "@/screens/Home/components/GroupPreview/GroupPreview";
 import { NoLinks } from "@/screens/Home/components/NoLinks";
-import { CurrentFormProvider, useLinksContext } from "@/contexts";
-import { useState } from "react";
 
 export const Home = () => {
   const [showInitialForm, setShowInitialForm] = useState<boolean>(false);
