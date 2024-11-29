@@ -72,7 +72,7 @@ export const Form: FC<FormProps> = ({
           <div className="flex flex-col">
             <label
               htmlFor="link"
-              className="text-[#344054] text-sm font-medium leading-5 mb-1.5"
+              className="ttext-font-primary text-sm font-medium leading-5 mb-1.5"
             >
               Link
             </label>
@@ -82,7 +82,7 @@ export const Form: FC<FormProps> = ({
               autoComplete="off"
               placeholder="Wklej lub wyszukaj"
               name="link"
-              className="px-3 py-2 rounded-lg border border-solid border-border-primary text-[#667085] outline-none placeholder-[#667085]"
+              className="px-3 py-2 rounded-lg border border-solid border-border-primary text-font-input placeholder-text-input outline-none shadow-link"
               value={watch("link")}
             />
             <p className="text-xs text-[#de3a5b] mt-1">

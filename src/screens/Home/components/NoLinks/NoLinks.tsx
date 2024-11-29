@@ -10,7 +10,7 @@ type NoLinksProps = {
 
 export const NoLinks: FC<NoLinksProps> = ({ setShowInitialForm }) => {
   return (
-    <div className="flex flex-col justify-center items-center w-full border border-solid border-border-noLinks bg-background-secondary mb-8 py-7">
+    <div className="flex flex-col justify-center items-center w-full border border-solid border-border-noLinks bg-background-primary mb-8 py-7">
       <h1 className="font-semibold leading-6 text-font-title">
         Menu jest puste
       </h1>
