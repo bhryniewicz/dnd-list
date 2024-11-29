@@ -1,7 +1,7 @@
 "use client";
 
 import { arrayMove } from "@dnd-kit/sortable";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { editLinkData, Link, LinkParentId, Group } from "@/types/link";
 
@@ -48,18 +48,16 @@ export const useLinks = () => {
   const deleteLink = (parentId: LinkParentId) => {
     const parent = findLink(parentId, links);
     const group = findLink(parent.parentId, links);
-    const link = findLink(parent.id, links);
 
-    if (parent.parentId.includes("group")) {
-      if (group.children.length === 1) {
-        const filteredLinks = links.filter((group1) => group1.id !== group.id);
-        setLinks([...filteredLinks]);
-      } else {
-        group.children = group.children.filter((link1: Link) => link1.id !== link.id);
-        setLinks([...links]);
-      }
+    if (!group || !parent) return;
+
+    group.children = group.children.filter(
+      (child: Link) => child.id !== parent.id
+    );
+
+    if (parent.parentId.includes("group") && group.children.length === 0) {
+      setLinks(links.filter((link) => link.id !== group.id));
     } else {
-      group.children = group.children.filter((link1: Link) => link1.id !== link.id);
       setLinks([...links]);
     }
   };
@@ -72,10 +70,6 @@ export const useLinks = () => {
 
     setLinks([...links]);
   };
-
-  useEffect(() => {
-    console.log(links);
-  }, [links]);
 
   const handleDragEnd = (event: any) => {
     const { active, over } = event;
