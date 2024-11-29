@@ -1,6 +1,6 @@
 export type LinkParentId = string | null;
 
-export type LinksGroup = {
+export type Group = {
   parentId: null;
   id: string;
   children: Array<Link>;

@@ -1,7 +1,10 @@
-import PlusCircleIcon from "@/assets/plusCircle.svg";
 import Image from "next/image";
-import { Button } from "../Button";
 import { FC } from "react";
+
+import PlusCircleIcon from "@/assets/plusCircle.svg";
+
+import { Button } from "../Button";
+
 
 type NoLinksProps = {
   setShowInitialForm: (value: boolean) => void;

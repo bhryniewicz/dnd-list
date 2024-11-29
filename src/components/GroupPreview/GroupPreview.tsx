@@ -1,9 +1,3 @@
-import { useCurrentFormContext, useLinksContext } from "@/contexts";
-import { Button } from "../Button";
-import { LinkPreview } from "../LinkPreview";
-import { Link } from "@/types";
-import { FC } from "react";
-import { LinkForm } from "../LinkForm/LinkForm";
 import {
   DndContext,
   closestCenter,
@@ -17,6 +11,15 @@ import {
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
+import { FC } from "react";
+
+import { useCurrentFormContext, useLinksContext } from "@/contexts";
+import { Link } from "@/types";
+
+import { Button } from "../Button";
+import { LinkForm } from "../LinkForm/LinkForm";
+import { LinkPreview } from "../LinkPreview";
+
 
 type GroupPreviewProps = {
   id: string;

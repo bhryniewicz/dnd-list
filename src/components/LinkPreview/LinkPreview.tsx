@@ -1,24 +1,18 @@
-import { FC } from "react";
-import { Link, LinkParentId } from "@/types";
-import DndIcon from "@/assets/dnd.svg";
-import Image from "next/image";
-import { LinkActionButtons } from "../LinkActionButtons/LinkActionButtons";
-import {
-  DndContext,
-  closestCenter,
-  KeyboardSensor,
-  PointerSensor,
-  useSensor,
-  useSensors,
-} from "@dnd-kit/core";
+
+
 import {
   useSortable,
   SortableContext,
-  sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { useLinksContext } from "@/contexts";
+import Image from "next/image";
+import { FC } from "react";
+
+import DndIcon from "@/assets/dnd.svg";
+import { Link, LinkParentId } from "@/types";
+
+import { LinkActionButtons } from "../LinkActionButtons/LinkActionButtons";
 
 export type LinkPreviewProps = {
   name: string;
@@ -36,13 +30,6 @@ export const LinkPreview: FC<LinkPreviewProps> = ({
   nestingLevel,
   children,
 }) => {
-  const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    })
-  );
-
   const nestingMarginStyle = {
     marginLeft: `${30 * nestingLevel}px`,
   };

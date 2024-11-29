@@ -1,10 +1,12 @@
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
-import { useCurrentFormContext } from "@/contexts";
-import { Button } from "../Button";
-import BinIcon from "@/assets/bin.svg";
 import { FC } from "react";
+import { useForm } from "react-hook-form";
+
+import BinIcon from "@/assets/bin.svg";
+import { useCurrentFormContext } from "@/contexts";
+
+import { Button } from "../Button";
 import { FormValues, schema } from "./schema";
 
 type FormProps = {
@@ -36,9 +38,7 @@ export const Form: FC<FormProps> = ({
   const handleFormSubmit = (data: FormValues) => {
     onSubmit(data);
     reset();
-    if (formValues.name && formValues.link) {
-      setCurrentForm(null);
-    }
+    setCurrentForm(null);
   };
 
   return (

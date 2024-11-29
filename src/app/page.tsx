@@ -1,10 +1,11 @@
 "use client";
 
+import { useState } from "react";
+
 import { GroupForm } from "@/components/GroupForm";
 import { GroupPreview } from "@/components/GroupPreview/GroupPreview";
 import { NoLinks } from "@/components/NoLinks";
 import { CurrentFormProvider, useLinksContext } from "@/contexts";
-import { useState } from "react";
 
 export default function Home() {
   const [showInitialForm, setShowInitialForm] = useState<boolean>(false);

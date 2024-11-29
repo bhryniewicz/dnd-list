@@ -1,4 +1,4 @@
-import { LinksProvider, CurrentFormProvider } from "@/contexts";
+import { LinksProvider } from "@/contexts";
 import "./globals.css";
 
 export default function RootLayout({
