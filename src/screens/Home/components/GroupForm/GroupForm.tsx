@@ -1,6 +1,6 @@
 import { useLinksContext } from "@/contexts";
 
-import { Form, FormValues } from "../Form";
+import { Form, FormValues } from "../../../../components/Form";
 
 export const GroupForm = () => {
   const { createGroup } = useLinksContext();

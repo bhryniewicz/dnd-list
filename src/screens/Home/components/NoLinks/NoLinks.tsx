@@ -3,7 +3,7 @@ import { FC } from "react";
 
 import PlusCircleIcon from "@/assets/plusCircle.svg";
 
-import { Button } from "../Button";
+import { Button } from "../../../../components/Button";
 
 
 type NoLinksProps = {

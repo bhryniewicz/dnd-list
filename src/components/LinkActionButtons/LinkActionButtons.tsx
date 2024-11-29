@@ -2,7 +2,7 @@ import { FC } from "react";
 
 import { useCurrentFormContext, useLinksContext } from "@/contexts";
 
-import { LinkForm } from "../LinkForm/LinkForm";
+import { LinkForm } from "../../screens/Home/components/LinkForm/LinkForm";
 import { LinkPreviewProps } from "../LinkPreview";
 
 type LinkActionButtons = Omit<LinkPreviewProps, "children" | "id">;

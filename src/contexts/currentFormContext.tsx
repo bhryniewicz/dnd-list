@@ -1,5 +1,6 @@
 "use client";
 
+import { useCurrentForm } from "@/hooks/useCurrentForm";
 import React, { createContext, useContext, ReactNode, useState } from "react";
 
 interface CurrentFormContextType {
@@ -14,7 +15,7 @@ const CurrentFormContext = createContext<CurrentFormContextType | undefined>(
 export const CurrentFormProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [currentForm, setCurrentForm] = useState<ReactNode>(null);
+  const { currentForm, setCurrentForm } = useCurrentForm();
 
   return (
     <CurrentFormContext.Provider value={{ currentForm, setCurrentForm }}>

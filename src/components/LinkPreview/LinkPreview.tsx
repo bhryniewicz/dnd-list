@@ -1,5 +1,3 @@
-
-
 import {
   useSortable,
   SortableContext,
@@ -30,16 +28,13 @@ export const LinkPreview: FC<LinkPreviewProps> = ({
   nestingLevel,
   children,
 }) => {
-  const nestingMarginStyle = {
-    marginLeft: `${30 * nestingLevel}px`,
-  };
-
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id });
 
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
+    marginLeft: `${30 * nestingLevel}px`,
   };
 
   return (
@@ -47,7 +42,7 @@ export const LinkPreview: FC<LinkPreviewProps> = ({
       <div
         className={`bg-white px-6 pt-4 border-l-[1px] border-b-[1px] border-[#D0D5DD]
         ${nestingLevel === 0 ? "rounded-t-lg " : "rounded-b-lg"}`}
-        style={{ ...nestingMarginStyle, ...style }}
+        style={{ ...style }}
       >
         <div className="flex gap-3.5 items-center pb-4 bg-white">
           <Image
