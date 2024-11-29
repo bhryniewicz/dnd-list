@@ -54,7 +54,7 @@ export const LinkPreview: FC<LinkPreviewProps> = ({
             {...attributes}
             {...listeners}
           />
-          <div className="grow gap-y-2">
+          <div className="flex flex-col grow gap-1">
             <h3 className="text-font-title text-sm font-semibold leading-5">
               {name}
             </h3>
