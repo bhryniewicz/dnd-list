@@ -27,7 +27,7 @@ type GroupPreviewProps = {
 
 export const GroupPreview: FC<GroupPreviewProps> = ({ id, children }) => {
   const { currentForm, setCurrentForm } = useCurrentFormContext();
-  const { handleDragEnd } = useLinksContext();
+  const { handleDragLink } = useLinksContext();
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -41,7 +41,7 @@ export const GroupPreview: FC<GroupPreviewProps> = ({ id, children }) => {
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}
-        onDragEnd={handleDragEnd}
+        onDragEnd={handleDragLink}
       >
         <SortableContext
           items={children ? children.map((child) => child.id) : []}

@@ -4,6 +4,7 @@ import { arrayMove } from "@dnd-kit/sortable";
 import { useState } from "react";
 
 import { editLinkData, Link, LinkParentId, Group } from "@/types/link";
+import { DragEndEvent } from "@dnd-kit/core";
 
 export const useLinks = () => {
   const [links, setLinks] = useState<Array<Group>>([]);
@@ -71,7 +72,7 @@ export const useLinks = () => {
     setLinks([...links]);
   };
 
-  const handleDragEnd = (event: any) => {
+  const handleDragLink = (event: DragEndEvent) => {
     const { active, over } = event;
 
     if (!over || active.id === over.id) return;
@@ -108,6 +109,6 @@ export const useLinks = () => {
     deleteLink,
     editLink,
     createGroup,
-    handleDragEnd,
+    handleDragLink,
   };
 };
