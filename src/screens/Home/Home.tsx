@@ -11,10 +11,13 @@ export const Home = () => {
 
   return (
     <>
-      <NoLinks setShowInitialForm={setShowInitialForm} showInitialForm={showInitialForm} />
+      <NoLinks
+        setShowInitialForm={setShowInitialForm}
+        showInitialForm={showInitialForm}
+      />
       {showInitialForm && (
         <CurrentFormProvider>
-          <GroupForm />
+          <GroupForm setShowInitialForm={setShowInitialForm} />
         </CurrentFormProvider>
       )}
       <div className="mt-4">

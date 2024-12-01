@@ -15,11 +15,13 @@ type FormProps = {
     link: string;
     name: string;
   };
+  setShowInitialForm?: (value: boolean) => void;
 };
 
 export const Form: FC<FormProps> = ({
   onSubmit,
   formValues = { link: "", name: "" },
+  setShowInitialForm = undefined,
 }) => {
   const { setCurrentForm } = useCurrentFormContext();
 
@@ -38,6 +40,15 @@ export const Form: FC<FormProps> = ({
   const handleFormSubmit = (data: FormValues) => {
     onSubmit(data);
     reset();
+    setCurrentForm(null);
+  };
+
+  const handleRemoveForm = () => {
+    if (setShowInitialForm) {
+      setShowInitialForm(false);
+      return;
+    }
+
     setCurrentForm(null);
   };
 
@@ -96,7 +107,7 @@ export const Form: FC<FormProps> = ({
           src={BinIcon}
           alt="bin icon"
           className="self-start cursor-pointer"
-          onClick={() => setCurrentForm(null)}
+          onClick={handleRemoveForm}
         />
       </div>
 
