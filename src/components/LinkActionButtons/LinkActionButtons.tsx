@@ -14,9 +14,9 @@ export const LinkActionButtons: FC<LinkActionButtons> = ({
 }) => {
   const { setCurrentForm } = useCurrentFormContext();
   const { deleteLink } = useLinksContext();
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const toggleMenu = () => setMenuOpen((prev) => !prev);
+  const toggleMenu = () => setIsMenuOpen((prev) => !prev);
 
   return (
     <div className="relative">
@@ -59,13 +59,13 @@ export const LinkActionButtons: FC<LinkActionButtons> = ({
         </button>
       </div>
 
-      {menuOpen && (
+      {isMenuOpen && (
         <div className="absolute right-0 mt-2 bg-white shadow-lg border border-solid border-border-primary rounded-lg flex flex-col w-40 z-10">
           <button
             className="py-2 px-4 text-left hover:bg-background-accent hover:text-white"
             onClick={() => {
               deleteLink(parentId);
-              setMenuOpen(false);
+              setIsMenuOpen(false);
             }}
           >
             Usuń
@@ -81,7 +81,7 @@ export const LinkActionButtons: FC<LinkActionButtons> = ({
                   key={parentId}
                 />
               );
-              setMenuOpen(false);
+              setIsMenuOpen(false);
             }}
           >
             Edytuj
@@ -92,7 +92,7 @@ export const LinkActionButtons: FC<LinkActionButtons> = ({
               setCurrentForm(
                 <LinkForm parentId={parentId} nestingLevel={nestingLevel} />
               );
-              setMenuOpen(false);
+              setIsMenuOpen(false);
             }}
           >
             Dodaj pozycję menu
