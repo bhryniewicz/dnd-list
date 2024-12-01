@@ -11,7 +11,7 @@ export const Home = () => {
 
   return (
     <>
-      <NoLinks setShowInitialForm={setShowInitialForm} />
+      <NoLinks setShowInitialForm={setShowInitialForm} showInitialForm={showInitialForm} />
       {showInitialForm && (
         <CurrentFormProvider>
           <GroupForm />

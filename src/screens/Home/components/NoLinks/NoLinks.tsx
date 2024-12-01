@@ -6,9 +6,13 @@ import { Button } from "@/components/Button";
 
 type NoLinksProps = {
   setShowInitialForm: (value: boolean) => void;
+  showInitialForm: boolean;
 };
 
-export const NoLinks: FC<NoLinksProps> = ({ setShowInitialForm }) => {
+export const NoLinks: FC<NoLinksProps> = ({
+  setShowInitialForm,
+  showInitialForm,
+}) => {
   return (
     <div className="flex flex-col justify-center items-center w-full border border-solid border-border-noLinks bg-background-primary mb-8 py-7">
       <h1 className="font-semibold leading-6 text-font-title">
@@ -17,7 +21,11 @@ export const NoLinks: FC<NoLinksProps> = ({ setShowInitialForm }) => {
       <p className="text-sm text-font-subtitle mb-6">
         W tym menu nie ma jeszcze żadnych linków.
       </p>
-      <Button variant="contained" onClick={() => setShowInitialForm(true)}>
+      <Button
+        disabled={showInitialForm}
+        variant="contained"
+        onClick={() => setShowInitialForm(true)}
+      >
         <Image
           alt="plus cirlce icon"
           width={20}

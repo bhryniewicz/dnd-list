@@ -5,9 +5,13 @@ import { ButtonProps } from "./types";
 export const Button: FC<ButtonProps> = ({
   children,
   variant,
+  disabled,
   onClick,
   ...rest
 }) => {
+  const baseStyles =
+    "text-sm border-solid border rounded-lg px-3.5 py-2.5 font-semibold shadow-link";
+
   const stylingVariant =
     variant === "primary"
       ? "border-border-primary text-font-primary"
@@ -15,13 +19,18 @@ export const Button: FC<ButtonProps> = ({
       ? "border-border-secondary text-font-secondary"
       : variant === "contained"
       ? "bg-background-accent flex items-center gap-2 text-white"
-      : null;
+      : "";
+
+  const disabledStyles = "opacity-50 cursor-not-allowed";
 
   return (
     <button
       onClick={onClick}
+      disabled={disabled}
       {...rest}
-      className={`text-sm border-solid border rounded-lg px-3.5 py-2.5 font-semibold shadow-link ${stylingVariant}`}
+      className={`${baseStyles} ${stylingVariant} ${
+        disabled ? disabledStyles : ""
+      }`}
     >
       {children}
     </button>
