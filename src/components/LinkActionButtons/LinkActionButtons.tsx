@@ -19,16 +19,19 @@ export const LinkActionButtons: FC<LinkActionButtons> = ({
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
 
   const menuButtonStyles = `
-      py-2 px-4 text-left 
-      hover:bg-background-accent 
-      hover:text-white 
-      ${isMenuOpen ? "bg-background-muted" : ""}
-    `;
+    py-2 px-4 text-left 
+    hover:bg-background-accent 
+    hover:text-white 
+    ${isMenuOpen ? "bg-background-muted" : ""}
+  `;
 
   return (
     <div className="relative">
-      <HiOutlineDotsHorizontal onClick={toggleMenu} />
-      <div className="hidden md:flex rounded-lg text-sm text-font-primary shadow-link font-semibold border border-solid border-border-primary divide-x divide-[#D0D5DD]">
+      <HiOutlineDotsHorizontal
+        onClick={toggleMenu}
+        className="block md:hidden w-6 h-6 text-font-primary cursor-pointer"
+      />
+      <div className="hidden md:flex rounded-lg text-sm text-font-primary shadow-link font-semibold border border-solid border-border-primary divide-x divide-border-primary">
         <button className="py-2 px-4" onClick={() => deleteLink(parentId)}>
           Usuń
         </button>
@@ -58,7 +61,6 @@ export const LinkActionButtons: FC<LinkActionButtons> = ({
           Dodaj pozycję menu
         </button>
       </div>
-
       {isMenuOpen && (
         <div className="absolute right-0 mt-2 bg-white shadow-link border border-solid border-border-primary rounded-lg flex flex-col w-40 z-10">
           <button
