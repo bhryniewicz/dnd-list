@@ -98,7 +98,7 @@ export const LinkActionButtons: FC<LinkActionButtons> = ({
             Dodaj pozycję menu
           </button>
           <button
-            className="py-2 px-4 text-left hover:bg-gray-100"
+            className="py-2 px-4 text-left"
             onClick={() => setIsMenuOpen(false)}
           >
             Anuluj
