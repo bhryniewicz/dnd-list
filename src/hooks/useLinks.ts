@@ -1,10 +1,10 @@
 "use client";
 
+import { DragEndEvent } from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
 import { useState } from "react";
 
 import { editLinkData, Link, LinkParentId, Group } from "@/types/link";
-import { DragEndEvent } from "@dnd-kit/core";
 
 export const useLinks = () => {
   const [links, setLinks] = useState<Array<Group>>([]);

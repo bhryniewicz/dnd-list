@@ -1,6 +1,7 @@
+import { FC } from "react";
+
 import { Form, FormValues } from "@/components/Form";
 import { useLinksContext } from "@/contexts";
-import { FC } from "react";
 
 type GroupFormProps = {
   setShowInitialForm: (value: boolean) => void;

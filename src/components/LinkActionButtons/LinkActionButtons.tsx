@@ -1,8 +1,10 @@
 import { FC, useState } from "react";
+import { HiOutlineDotsHorizontal } from "react-icons/hi";
+
 import { useCurrentFormContext, useLinksContext } from "@/contexts";
 import { LinkForm } from "@/screens/Home/components/LinkForm/LinkForm";
+
 import { LinkPreviewProps } from "../LinkPreview";
-import { HiOutlineDotsHorizontal } from "react-icons/hi";
 
 type LinkActionButtons = Omit<LinkPreviewProps, "children" | "id">;
 
