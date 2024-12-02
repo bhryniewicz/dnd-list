@@ -35,6 +35,7 @@ export const LinkPreview: FC<LinkPreviewProps> = ({
     transform: CSS.Transform.toString(transform),
     transition,
     marginLeft: `${30 * nestingLevel}px`,
+    touchAction: "none",
   };
 
   return (
