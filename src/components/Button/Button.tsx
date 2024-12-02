@@ -10,7 +10,7 @@ export const Button: FC<ButtonProps> = ({
   ...rest
 }) => {
   const baseStyles =
-    "text-sm border-solid border rounded-lg px-3.5 py-2.5 font-semibold shadow-link";
+    "flex-grow sm:flex-grow-0 text-sm border-solid border rounded-lg px-3.5 py-2.5 font-semibold shadow-link ";
 
   const stylingVariant =
     variant === "primary"
@@ -21,16 +21,14 @@ export const Button: FC<ButtonProps> = ({
       ? "bg-background-accent flex items-center gap-2 text-white"
       : "";
 
-  const disabledStyles = "opacity-50 cursor-not-allowed";
+  const disabledStyles = `${disabled ? "opacity-50 cursor-not-allowed" : ""}`;
 
   return (
     <button
       onClick={onClick}
       disabled={disabled}
       {...rest}
-      className={`${baseStyles} ${stylingVariant} ${
-        disabled ? disabledStyles : ""
-      }`}
+      className={`${baseStyles} ${stylingVariant} ${disabledStyles}`}
     >
       {children}
     </button>

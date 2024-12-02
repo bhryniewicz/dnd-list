@@ -111,7 +111,7 @@ export const Form: FC<FormProps> = ({
         />
       </div>
 
-      <div className="flex gap-2 mt-5">
+      <div className="flex gap-2 mt-5 w-full">
         <Button
           type="reset"
           variant="primary"
@@ -122,7 +122,7 @@ export const Form: FC<FormProps> = ({
         >
           Anuluj
         </Button>
-        <Button type="submit" variant="secondary">
+        <Button type="submit" variant="secondary" >
           {formValues.name ? "Edytuj" : "Dodaj"}
         </Button>
       </div>
