@@ -4,6 +4,7 @@ import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { useCurrentFormContext, useLinksContext } from "@/contexts";
 import { LinkForm } from "@/screens/Home/components/LinkForm/LinkForm";
 
+import { Button } from "../Button";
 import { LinkPreviewProps } from "../LinkPreview";
 
 type LinkActionButtons = Omit<LinkPreviewProps, "children" | "id">;
@@ -34,11 +35,11 @@ export const LinkActionButtons: FC<LinkActionButtons> = ({
         className="block md:hidden w-6 h-6 text-font-primary cursor-pointer"
       />
       <div className="hidden md:flex rounded-lg text-sm text-font-primary shadow-link font-semibold border border-solid border-border-primary divide-x divide-border-primary">
-        <button className="py-2 px-4" onClick={() => deleteLink(parentId)}>
+        <Button variant="primary" onClick={() => deleteLink(parentId)}>
           Usuń
-        </button>
-        <button
-          className="py-2 px-4"
+        </Button>
+        <Button
+          variant="primary"
           onClick={() =>
             setCurrentForm(
               <LinkForm
@@ -51,9 +52,9 @@ export const LinkActionButtons: FC<LinkActionButtons> = ({
           }
         >
           Edytuj
-        </button>
-        <button
-          className="py-2 px-4"
+        </Button>
+        <Button
+          variant="primary"
           onClick={() =>
             setCurrentForm(
               <LinkForm parentId={parentId} nestingLevel={nestingLevel} />
@@ -61,7 +62,7 @@ export const LinkActionButtons: FC<LinkActionButtons> = ({
           }
         >
           Dodaj pozycję menu
-        </button>
+        </Button>
       </div>
       {isMenuOpen && (
         <div className="absolute right-0 mt-2 bg-white shadow-link border border-solid border-border-primary rounded-lg flex flex-col w-40 z-10">
