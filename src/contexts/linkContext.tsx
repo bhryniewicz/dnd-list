@@ -1,5 +1,6 @@
 "use client";
 
+import { DragEndEvent } from "@dnd-kit/core";
 import React, { createContext, useContext, ReactNode } from "react";
 
 import { useLinks } from "@/hooks/useLinks";
@@ -11,7 +12,7 @@ type LinksContextType = {
   deleteLink: (parentId: LinkParentId) => void;
   editLink: (parentId: LinkParentId, linkData: editLinkData) => void;
   createGroup: (groupId: string, firstLink: Link) => void;
-  handleDragEnd: any;
+  handleDragLink: (event: DragEndEvent) => void;
 };
 
 const LinksContext = createContext<LinksContextType | undefined>(undefined);

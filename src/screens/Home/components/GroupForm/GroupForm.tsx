@@ -1,8 +1,13 @@
+import { FC } from "react";
+
 import { Form, FormValues } from "@/components/Form";
 import { useLinksContext } from "@/contexts";
 
+type GroupFormProps = {
+  setShowInitialForm: (value: boolean) => void;
+};
 
-export const GroupForm = () => {
+export const GroupForm: FC<GroupFormProps> = ({ setShowInitialForm }) => {
   const { createGroup } = useLinksContext();
 
   const onSubmit = ({ link, name }: FormValues) => {
@@ -17,5 +22,5 @@ export const GroupForm = () => {
     });
   };
 
-  return <Form onSubmit={onSubmit} />;
+  return <Form onSubmit={onSubmit} setShowInitialForm={setShowInitialForm} />;
 };

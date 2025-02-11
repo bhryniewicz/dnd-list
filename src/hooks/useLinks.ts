@@ -1,5 +1,6 @@
 "use client";
 
+import { DragEndEvent } from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
 import { useState } from "react";
 
@@ -71,35 +72,48 @@ export const useLinks = () => {
     setLinks([...links]);
   };
 
-  const handleDragEnd = (event: any) => {
+  const handleDragLink = (event: DragEndEvent) => {
     const { active, over } = event;
 
     if (!over || active.id === over.id) return;
 
-    const linkToDrag = findLink(over.id, links);
-    const activeParentList = findLink(linkToDrag.parentId, links);
+    const draggedLink = findLink(active.id, links);
+    const oldParent = findLink(draggedLink.parentId, links);
 
-    if (!linkToDrag) {
-      console.error("Active item doesn't have a valid parent.");
+    const newParent = findLink(over.id, links);
+
+    if (!draggedLink) {
+      console.error("Dragged item not found.");
       return;
     }
 
-    const oldIndex = activeParentList.children.findIndex(
-      (child: Link) => child.id === active.id
-    );
-    const newIndex = activeParentList.children.findIndex(
-      (child: Link) => child.id === over.id
-    );
+    if (newParent && newParent.id !== draggedLink.parentId) {
+      if (oldParent) {
+        oldParent.children = oldParent.children.filter(
+          (child) => child.id !== active.id
+        );
+      }
 
-    const updatedChildren = arrayMove(
-      activeParentList.children,
-      oldIndex,
-      newIndex
-    );
+      newParent.children.push({ ...draggedLink, parentId: newParent.id });
 
-    activeParentList.children = updatedChildren;
+      setLinks([...links]);
+      return;
+    }
 
-    setLinks([...links]);
+    if (oldParent) {
+      const oldIndex = oldParent.children.findIndex(
+        (child: Link) => child.id === active.id
+      );
+      const newIndex = oldParent.children.findIndex(
+        (child: Link) => child.id === over.id
+      );
+
+      const updatedChildren = arrayMove(oldParent.children, oldIndex, newIndex);
+
+      oldParent.children = updatedChildren;
+
+      setLinks([...links]);
+    }
   };
 
   return {
@@ -108,6 +122,6 @@ export const useLinks = () => {
     deleteLink,
     editLink,
     createGroup,
-    handleDragEnd,
+    handleDragLink,
   };
 };
