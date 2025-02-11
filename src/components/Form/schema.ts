@@ -5,7 +5,7 @@ export const schema = z.object({
   link: z
     .string()
     .regex(
-      /^(https?:\/\/)([a-zA-Z0-9.-]+)\.([a-zA-Z]{2,})(\/[^\s]*)?$/,
+      /^(?:https?:\/\/([a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}(\/[^\s]*)?)?$/,
       "Podany format linka jest niepoprwany"
     ),
 });
