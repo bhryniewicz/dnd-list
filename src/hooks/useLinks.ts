@@ -78,42 +78,26 @@ export const useLinks = () => {
     if (!over || active.id === over.id) return;
 
     const draggedLink = findLink(active.id, links);
-    const oldParent = findLink(draggedLink.parentId, links);
+    const parent = findLink(draggedLink.parentId, links);
 
-    const newParent = findLink(over.id, links);
-
-    if (!draggedLink) {
-      console.error("Dragged item not found.");
+    if (!draggedLink || !parent) {
+      console.error("Dragged item or its parent not found.");
       return;
     }
 
-    if (newParent && newParent.id !== draggedLink.parentId) {
-      if (oldParent) {
-        oldParent.children = oldParent.children.filter(
-          (child) => child.id !== active.id
-        );
-      }
-
-      newParent.children.push({ ...draggedLink, parentId: newParent.id });
-
-      setLinks([...links]);
+    const targetSibling = findLink(over.id, links);
+    if (targetSibling.parentId !== draggedLink.parentId) {
       return;
     }
 
-    if (oldParent) {
-      const oldIndex = oldParent.children.findIndex(
-        (child: Link) => child.id === active.id
-      );
-      const newIndex = oldParent.children.findIndex(
-        (child: Link) => child.id === over.id
-      );
+    const oldIndex = parent.children.findIndex(
+      (child) => child.id === active.id
+    );
+    const newIndex = parent.children.findIndex((child) => child.id === over.id);
 
-      const updatedChildren = arrayMove(oldParent.children, oldIndex, newIndex);
+    parent.children = arrayMove(parent.children, oldIndex, newIndex);
 
-      oldParent.children = updatedChildren;
-
-      setLinks([...links]);
-    }
+    setLinks([...links]);
   };
 
   return {
